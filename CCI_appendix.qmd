@@ -1,0 +1,131 @@
+---
+title: "Appendix"
+subtitle: "Educational Mobility and Attitudes Towards Social Justice in Europe"
+author: 
+    - Daniel Capistrano
+    - Mathew Creighton
+    - Ebru Işıklı
+format: html
+  # pdf:
+  #   link-citations: true
+  #   include-in-header: 
+  #     text: |
+  #       \usepackage{typearea}
+toc: false
+number-sections: true
+execute:
+    echo: false
+    warning: false
+    message: false
+    cache: false
+---
+
+```{r}
+library(gt)
+```
+
+# Introduction
+
+In this appendix, we include additional tables and tests from the paper `TITLE`.
+
+\newpage
+
+<!-- changing the orientation to landscape --------------------------------- -->
+
+\KOMAoptions{paper=landscape,pagesize}
+\recalctypearea
+
+# Pooled sample
+
+```{r}
+#| label: tbl-afull
+#| tbl-cap: "Full model estimates for the pooled sample"
+
+# Running code to generate the raw Table1
+source("./code/2_Estimates.R")
+
+# Generating formatted table
+
+tab_output |>
+  mutate(label = ifelse(label == "(Intercept)", "Intercept", label) ) |>
+  mutate(variable = case_match(variable, 
+                "eisced" ~ "Educ. attain. (Resp.)",
+                "eiscedp" ~ "Educ. attain. (Parent.)",
+                #"age_group" ~ "Age group",
+                "gender" ~ "Gender",
+                "income_feeling" ~ "Feeling about income",
+                "(Intercept)" ~ "Intercept",
+                .default = variable)) |>
+  gt(groupname_col = "variable", rowname_col = "label") |>
+  sub_missing(columns = everything(), missing_text = "") |>
+  tab_spanner(label = "Equality", columns = starts_with("equality")) |>
+  tab_spanner(label = "Equity", columns = starts_with("equity")) |>
+  tab_spanner(label = "Need", columns = starts_with("need")) |>
+  tab_spanner(label = "Entitlement", columns = starts_with("entitlement")) |>
+  cols_label(ends_with("_estimate") ~ "Estimate",
+            ends_with("_conf") ~ "95% CI") |>
+  tab_footnote(md("**Source**: European Social Survey (Round 9)<br>
+      **Notes**: The estimates are derived from weighted data (*anweight*). 
+      Estimates for interactions between education attainment levels were omitted.
+      Models also included country fixed-effects")) |>
+  tab_style(style = cell_text(align = "left", indent = px(10)), locations = cells_stub()) 
+
+```
+
+
+\newpage
+
+<!-- % changing the orientation to portrait again -------------------------- -->
+
+\KOMAoptions{paper=portrait,pagesize}
+\recalctypearea
+
+
+
+
+# Mobility estimates by country
+
+
+```{r}
+#| label: tbl-acntry
+#| tbl-cap: "Mobility effects by country and outcome variable"
+
+# Running code to generate the raw Table1
+source("./code/3_EstimatesByCntry.R")
+
+# Generating formatted table
+
+tab_est_c |>
+  left_join(tab_sig_c, by = c("cntry", "Outcome", "Origin", "Destination")) |>
+  left_join(tab_clabel, by = "cntry") |>
+  mutate(Value = if_else(is.na(Estimate), NA, 
+                          paste0(as.character(round(Estimate, 3)),Sig))) |>
+  select(country, Outcome, Origin, Destination, Value) |>
+  pivot_wider(names_from = Destination, values_from = Value) |>
+  pivot_wider(names_from = Outcome, values_from = c(L1, L2, L3), names_glue = "{Outcome}_{.value}") |>
+  gt(groupname_col = "country") |>
+  sub_missing(columns = everything(), missing_text = "") |>
+  tab_spanner(label = "Equality", columns = starts_with("Equality")) |>
+  tab_spanner(label = "Equity", columns = starts_with("Equity")) |>
+  tab_spanner(label = "Need", columns = starts_with("Need")) |>
+  tab_spanner(label = "Entitlement", columns = starts_with("Entitlement")) |>
+  cols_label(ends_with("_L1") ~ "L1",ends_with("_L2") ~ "L2", ends_with("_L3") ~ "L3") |>
+  cols_label(Origin ~ md("Parental <br>educ. level")) |>
+  sub_missing(columns = everything(), missing_text = "--") |>
+  tab_spanner(label = "Respondents' educational level", columns = -c(Origin, country)) |>
+  tab_style_body(fn = function(x) str_detect(x, "\\*"), style = cell_text(weight = 'bold')) |>
+  tab_footnote(md("**Source**: European Social Survey (Round 9)<br>
+      **Notes**: *p < .05,  **p< .01, ***p < .001. Only countries with a statistically significant effect are shown in the table.")) |>
+  tab_style(cell_text(indent = px(-5)), locations = cells_row_groups(groups = everything())) |>
+  tab_style(cell_text(indent = px(15)), locations = cells_body(columns = "Origin"))
+
+```
+
+
+
+# Missing Values
+
+For the analysis reported in the main text, the missing values were replaced using an iterative multiple imputation method based on the random forest algorithm. Here we include the 
+
+
+# References

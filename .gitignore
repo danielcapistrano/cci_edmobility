@@ -1,0 +1,9 @@
+#the following file can be accessed from the ESS website
+code/data/ESS9e03_1.sav
+# The following data file was not uploaded
+# Please contact authors to request access
+code/data/ess_cci.RData
+code/data/ess_cci_listwise.RData
+.quarto
+.DS_Store
+/.quarto/
