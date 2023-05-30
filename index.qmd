@@ -17,12 +17,12 @@ execute:
     echo: false
     warning: false
     message: false
-    cache: true
+    cache: false
 bibliography: refs/mobility.bib
 csl: refs/american-sociological-association.csl
 ---
 
-In this website, we summarise the results of the paper `title` that is available `link-paper`. All the code and data required to reprodue the analysis described here is available in this `link-repository`.  
+In this website, we summarise the results of the paper `title` that is available `link-paper`. All the code and data required to reproduce the analysis described here is available in this `link-repository`.  
 
 
 ```{r} 
