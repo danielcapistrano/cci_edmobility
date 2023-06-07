@@ -1,0 +1,373 @@
+---
+title: "'I guess we are from very different backgrounds':"
+subtitle: "Educational Mobility and Attitudes Towards Social Justice in Europe"
+author: Daniel Capistrano, Mathew Creighton and Ebru Işıklı
+title-slide-attributes:
+    data-background-image: img/slidecover.png
+    data-background-size: cover
+date: June 2023
+date-format: "MMMM YYYY"
+from: markdown+emoji
+format: 
+  revealjs:
+    theme: slides.scss
+    incremental: true
+    logo: img/logo_geary.png
+    transition: fade
+    mouse-wheel: true    
+    background-transition: fade
+    controls: true
+    highlight-style: github
+    menu: false
+    reference-location: margin
+cache: false
+editor: 
+  markdown: 
+    wrap: sentence
+bibliography: refs/mobility.bib
+---
+
+## Slide settings {visibility="hidden"}
+
+
+```{r} 
+# Loading package with function to get formatted tables 
+library(gt)
+library(tidyverse)
+
+# Load data processed in 0_Processing.R
+load("./code/data/ess_cci.RData")
+```
+
+
+::: {.notes}
+
+{background-image="./img/" background-size="100%"}
+{.smaller}
+{.scrollable}
+{.nonincremental}
+{.columns} {.column width="50%"}
+{.r-fit-text}
+{#slide-id data-menu-title="Image from"}
+
+Include IRC logo
+Hobsbawn 
+Measuring social justice perception
+
+
+:::
+
+# {background-image="img/NormalPeople.jpeg" background-size="100%"}
+
+:::aside
+
+:::
+
+## {.smaller}
+
+
+Marianne said she was worried about Peggy, who was the only one of the three of them not to get the scholarship. She said it would be hard on her. Connell inhaled and said nothing. Peggy didn’t need subsidised tuition or free on-campus accommodation, because she lived at home in Blackrock and her parents were both doctors, but Marianne was intent on seeing the scholarships as a matter of personal feeling rather than economic fact.  
+
+[...]
+
+- Though in terms of financial circumstances too, obviously, she said. I mean, it’s kind of ridiculous they don’t means-test these things.  
+
+- I guess we’re from very different backgrounds, class-wise. 
+
+:::aside
+From 'Normal People' by Sally Rooney [-@rooney_normal_2018]
+:::
+
+# Question {background-color="#498b9dff" style="color: #fff;"}
+
+Is the experience of mobility associated with attitudes towards principles of social justice? 
+
+
+## Outline {background-image="./img/path.png" background-position="right" background-size="25%"} 
+
+- Previous studies  
+- Data and methods  
+- Results    
+- More questions  
+
+
+# Previous studies {background-color="#498b9dff" style="color: #fff;"}
+
+
+
+## Social justice principles
+
+Scales created by Hülle et al. [-@hulle_measuring_2018] based on the following principles:
+<br>
+
+- **Equality**: Everyone should receive the same in a society  
+
+- **Equity**: Benefits and burdens should be distributed according to individual investments
+
+- **Need**: Everyone should receive enough to cover basic needs
+
+- **Entitlement**: Benefits or burdens should be allocated according to achieved status such as gender, education, occupation, or origin 
+
+
+## Associated factors
+
+- **Education**: Social class and education attainment as associated factors for welfare attitudes and views on inequality [@steele_attitudes_2019; @reyes_are_2022; @adriaans_basic_2022; @oorschot_recent_2022]
+
+- **Mobility**: Integenerational educational mobility related with attitudes to immigration [@creighton_educational_2022] and openness to globalisation [@kunst_as_2023]
+
+
+# Methods and data {background-color="#498b9dff" style="color: #fff;"}
+
+## Data source
+
+::::{.columns} 
+
+:::{.column width="30%"}
+![](./img/ess_topline.png)
+:::
+
+:::{.column width="70%"}
+- European Social Survey
+
+- Irish Research Council  
+
+- Special module on Fairness and Justice (2018)
+
+- 29 European countries    
+
+- `r format(nrow(ess_cci), big.mark = ",")` observations
+
+:::
+
+::::
+
+## Variables
+
+- **Outcome**: Equality, Equity, Need, Justice  
+
+- **Covariates**: Age, Gender, Feeling about household income, Parental educational 
+attainment (Origin), Respondent's educational attainment (Destination)
+
+- **Explanatory**: Mobility between Origin and Destination
+
+
+## Mobility in Europe {.smaller}
+
+```{r}
+library(easyalluvial)
+library(parcats)
+
+df_alv_ess <- ess_cci[, c("geiscedp", "geisced")]
+names(df_alv_ess) <- c("Parent", "Respondent")
+alv_ess <-  alluvial_wide(df_alv_ess, fill_by = 'last_variable',
+              col_vector_flow = c("#BCC7CD", "#498B9D", "#AA5B55"))
+
+parcats(alv_ess, marginal_histograms = FALSE)
+
+```
+
+## Measuring mobility effects
+
+Mobility Contrast Model [@luo_heterogeneous_2022]  
+<br>
+
+```{r}
+ess_cci |>
+  count(geisced, geiscedp, wt = anweight) |>
+  mutate(p = round(prop.table(n)*100, 1)) |>
+  select(-n) |>
+  pivot_wider(names_from = geisced, values_from = p) |>
+  gt() |>
+  cols_label(geiscedp ~ md("Parental <br>educ. level")) |>
+  tab_spanner(label = "Respondents' educational level", columns = L1:L3) |>
+  tab_options(table.width = pct(70), table.font.size = px(22))
+
+```
+
+
+
+# Results  {background-color="#498b9dff" style="color: #fff;"}
+
+
+## Mobility averages 
+
+```{r}
+get_tiles <- function(myoutcome){
+tab1 <-
+  ess_cci |>
+  group_by(geisced, geiscedp) |>
+  summarise(mean = weighted.mean({{myoutcome}}, w = anweight)) |>
+  mutate(Origin = as.numeric(gsub("L", "", geiscedp))) |>
+  mutate(Destination = as.numeric(gsub("L", "", geisced)))
+
+mid1 <- median(tab1$mean)
+
+tab1 |>
+  ggplot(aes(x = Origin, y = reorder(Destination, -Destination))) +
+  geom_tile(aes(fill = mean), width = 1) +
+  geom_vline(xintercept = c(1.5, 2.5))+
+  geom_hline(yintercept = c(1.5, 2.5))+
+  geom_hline(yintercept = c(0.5, 3.5))+
+  geom_text(aes(label = round(mean,2)), size = 7, color = "white") +
+  scale_fill_gradient2(low = "#AA5B55", mid = "#BCC7CD", high = "#498B9D", midpoint = median(mid1))+
+  scale_x_continuous(breaks=c(1,2,3),labels=c("L1","L2","L3"), expand=c(0,0), sec.axis = dup_axis()) +
+  scale_y_discrete(labels=c("L3","L2","L1")) +
+  labs(x = "Respondent educ. (Destination)", y = "Parental education (Origin)") +
+  theme_light() +
+  theme(axis.text = element_text(size = 16),
+        axis.title = element_text(size = 13),
+        legend.position = "bottom")
+}
+```
+
+
+::: {.panel-tabset}
+
+### Equality
+
+```{r}
+get_tiles(equality)
+```
+
+### Equity
+
+```{r}
+get_tiles(equity)
+```
+
+### Need
+
+```{r}
+get_tiles(need)
+```
+
+### Entitlement
+
+```{r}
+get_tiles(entitlement)
+```
+
+:::
+
+## Equality in France :fr: 
+
+```{r}
+source("./code/3_EstimatesByCntry.R")
+
+# Tidying table to generate plot
+tab_forplot <-
+  tab_est_c |> 
+    left_join(tab_sig_c, by = c("cntry", "Outcome", "Origin", "Destination")) |>
+    select(cntry, Outcome, Origin, Destination, Estimate, Sig)  |>
+    mutate(label = paste0(as.character(round(Estimate, 2)), Sig)) |>
+    mutate(Origin = as.numeric(gsub("L", "", Origin))) |>
+    mutate(Destination = as.numeric(gsub("L", "", Destination))) 
+
+
+# Function to generate plot for each outcome
+get_ggtile <- function(myoutcome, mycountry){
+  mid1 <- 
+    tab_forplot |> 
+    filter(Outcome == {{myoutcome}} & cntry == {{mycountry}}) |>
+    summarise(median = median(Estimate, na.rm = TRUE)) |>
+    pull(median)
+
+  tab_forplot |>
+    filter(Outcome == {{myoutcome}} & cntry == {{mycountry}}) |>
+    ggplot(aes(x = Destination, y = reorder(Origin, - Origin))) + 
+    geom_tile(aes(fill = Estimate), width = 1) +
+    geom_vline(xintercept = c(1.5, 2.5))+
+    geom_hline(yintercept = c(1.5, 2.5))+
+    geom_hline(yintercept = c(0.5, 3.5))+
+    geom_text(aes(label = label), size = 7, color = "white") +
+    scale_fill_gradient2(low = "#AA5B55", mid = "#BCC7CD", high = "#498B9D", midpoint = mid1, na.value = "white")+
+    scale_x_continuous(breaks=c(1,2,3),labels=c("L1","L2","L3"), expand=c(0,0), sec.axis = dup_axis()) +
+    scale_y_discrete(labels=c("L3","L2","L1")) +
+    labs(x = "Respondent educ. (Destination)", y = "Parental education (Origin)") +
+    theme_light() +
+    theme(axis.text = element_text(size = 16),
+          axis.title = element_text(size = 13),
+          legend.position = "bottom")
+}
+
+```
+
+
+```{r}
+get_ggtile("Equality", "FR")
+```
+
+:::aside
+Wording: *A society is fair when income and wealth are equally distributed among all people*
+:::
+
+
+## Equality in Iceland :iceland: 
+
+```{r}
+get_ggtile("Equality", "IS")
+```
+
+:::aside
+Wording: *A society is fair when income and wealth are equally distributed among all people*
+:::
+
+
+## Equality in Portugal :portugal:
+
+```{r}
+get_ggtile("Equality", "PT")
+```
+
+:::aside
+Wording: *A society is fair when income and wealth are equally distributed among all people*
+:::
+
+
+## Need in Denmark :denmark:
+
+```{r}
+get_ggtile("Need", "DK")
+```
+
+:::aside
+*A society is fair when it takes care of those who are poor and inn need regardless of what they give back to society*
+:::
+
+## Need in Ireland :ireland:
+
+```{r}
+get_ggtile("Need", "IE")
+```
+
+:::aside
+*A society is fair when it takes care of those who are poor and inn need regardless of what they give back to society*
+:::
+
+
+## Equality in Europe 
+
+![](img/table2.png){fig-align=center}
+
+:::aside
+Wording: *A society is fair when income and wealth are equally distributed among all people*
+:::
+
+
+## Presentation
+
+:::{.r-fit-text}
+[www.tinyurl.com/edumobility](www.tinyurl.com/edumobility)
+:::
+
+## More questions
+
+- Are there any country-level characteristics that could explain the differences
+found in mobility effects?  
+
+
+- Theoretical or methodological explanations for differences across principles?
+(clear for equality but no observed differences for the other three)  
+
+
+## References

@@ -95,7 +95,7 @@ The questions designed by Hülle et al. [-@hulle_measuring_2018] aimed at assess
 |-------------|---------------|----------------|
 | Equality    | sofrdst       | A society is fair when income and wealth are equally distributed among all people                                    |
 | Equity      | sofrwrk       | A society is fair when hard-working people earn more than others                                                     |
-| Need        | sofrpr        | A society is fair when it takes care of those who are poor and inn need regardless of what they give back to society |
+| Need        | sofrpr        | A society is fair when it takes care of those who are poor and in need regardless of what they give back to society |
 | Entitlement | sofrprv       | A society is fair when people from families with social status enjoy privileges in their lives        between               |
 : Table 1 - Wording of the outcome variables and respective social justice principle {tbl-colwidths="[15,15,70]"}
 
