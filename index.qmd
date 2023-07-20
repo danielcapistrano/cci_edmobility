@@ -19,7 +19,7 @@ execute:
     message: false
     cache: false
 bibliography: refs/mobility.bib
-csl: refs/american-sociological-association.csl
+csl: refs/apa.csl
 ---
 
 In this website, we summarise the results of the paper `title` that is available `link-paper`. All the code and data required to reproduce the analysis described here is available in this `link-repository`.  
@@ -30,12 +30,12 @@ In this website, we summarise the results of the paper `title` that is available
 library(gt)
 
 # Load data processed in 0_Processing.R
-load("./code/data/ess_cci.RData")
+load("./code/data/ess_cci_mi.rds")
 ```
 
 # What is this research about?
 
-The book 'Normal People' by Sally Rooney [-@rooney_normal_2018] offers a delicate portrayal of a social phenomenon addressed in this study. Connel, one of the main characters, comes from a working-class family in the country side and is admitted to study in a prestigious university in the capital. The story develops around his relationship with Marianne, who is also studying at the same university and is from a wealthy background with her mother being the employer of Connel's mother. In a passage of the book, they are having a coffee after receiving the news that both of them got a scholarship, but one of Marianne's friend did not get it.  
+The book 'Normal People' by Sally Rooney [-@rooney_normal_2018] offers a literary portrayal of a social phenomenon addressed in this study. Connel, one of the main characters, comes from a working-class family in the country side and is admitted to study in a prestigious university in the capital. The story develops around his relationship with Marianne, who is also studying at the same university and is from a wealthy background with her mother being the employer of Connel's mother. In a passage of the book, they are having a coffee after receiving the news that both of them got a scholarship, but one of Marianne's friend did not get it.  
 
 :::{.column-page}
 ![Image from a scene in 'Normal People' drama series, Hettie Macdonald, 2020 ](./img/NormalPeople.jpeg)
@@ -65,17 +65,14 @@ Inequality and social justice are pressing topics for academics and policy maker
 
 In this work, we contribute to expanding this literature by investigating the relationship between attitudes towards social justice and educational mobility. Two main aspects are important in this endeavour. First, the focus on mobility which provides a more complex understanding of the influence of social stratification by assessing social positions not only within but also across generations. Secondly, this approach also emphasises education as a social process that goes beyond human capital acquisition, shaping perceptions and normative attitudes in relation to social matters. In this sense, intergenerational mobility in educational attainment translates not only into a change in material conditions (i.e. occupation, income) but also in the way individuals view social justice. 
 
-With this intent, we investigated the relationship between intergenerational educational mobility and attitudes towards social justice aiming to respond the following two main questions:
-
-1) Does the experience of upward mobility predict attitudes towards principles of social justice?  
-2) Is the educational level of the origin (parental) or the destination (respondent's) more influential in shaping attitudes toward social justice?  
+With this intent, we investigated the relationship between intergenerational educational mobility and attitudes towards social justice aiming to respond the following main question: Does the experience of educational mobility predict attitudes towards principles of social justice?  
  
 <br>
 <br>
 
 ![](./img/sep.png)
 
-# How was it conducted?
+# How was the research conducted?
 
 
 ## Data 
@@ -179,7 +176,7 @@ In this analysis, we adopted a new method called Mobility Contrast Model (MCM) r
 
 @tbl-mobil shows the mobility effects for all outcome variables by mobility status. The results differ considerably depending on the outcome variable.
 
-The analysis provides evidence that intergenerational educational mobility is associated with the principle of Equality. The strongest effects are found among those whose parents completed the lowest educational level (L1) and who finished either the Level 6 ($\beta$ = 0.256, p <.05), Level 5 ($\beta$ = 0.237, p <.05), or Level 4 ($\beta$ = 0.201, p <.05). The gradual increase in the effect size also  suggests that more steps in the upward mobility result in stronger support for the principle of Equality. On the other hand, for one group who experienced a "shorter" journey of upward mobility (L3 to L6), we observed significant negative effects. Overall no significant downward mobility effects were detected in the model. 
+The analysis provides evidence that intergenerational educational mobility is associated with the principle of Equality. The strongest relationship is found among those who finished the Level 6 and whose parents completed either the lowest educational level (\beta = 0.226, p <.01), or the second lowest level (\beta = 0.224, p <.05). These are individuals experiencing a notably high level of upward intergenerational educational mobility. The observed increase in the effect size (from L5 to L6) also suggests that greater upward mobility results in increasing support for the principle of Equality. No significant downward mobility effects were detected in the model.
 
 
 ```{r}
@@ -212,7 +209,7 @@ tab_est |>
 
 ## Mobility effects (by country)
 
-The samples from 6 countries out of the 29 participating countries did not indicate any statistically significant mobility effect: United Kingdom, Hungary, Lithuania, Latvia, Netherlands, and Norway. @fig-tiles below shows the coefficients of the mobility effects for all the remaining countries. 
+The samples from 7 countries out of the 29 participating countries did not indicate any statistically significant mobility effect: Estonia, Finland, United Kingdom, Ireland, Netherlands, Norway, and Poland. @fig-tiles below shows the coefficients of the mobility effects for all the remaining countries. 
 
 :::{#fig-tiles}
 ![](./img/fig_tiles.png)
@@ -220,15 +217,7 @@ The samples from 6 countries out of the 29 participating countries did not indic
 Mobility effects for each justice principle by country
 :::
 
-The analysis of the pooled sample indicated a significant mobility effect from those whose origins lie in the lowest levels and destination in the highest levels. The same result can be observed in the French sample (FR), where the mobility from Level 1 to Level 3 is associated with additional  0.29 units in the scale of Equality (p<0.05). However, two cases go in the opposite direction. Portugal (PT) and Sweden (SE) have a very similar structure of mobility effect in which upward mobility from Level 1, either to Level 2 or 3, is associated with lower support for Equality. Also in both countries a negative effect is found among those in Level 1 whose parents were in Level 3. This suggests a country-level difference in relation to the effects of mobility on support for Equality.   
-
-For the principle of Equity, most of mobility effects have a positive coefficient denoting that an intergenerational mobility in educational attainment is associated with higher support for this principle in most countries (either downward or upward) in almost all countries with the exception of Montenegro.
-
-The German (DE) case in this model also presents evidence on the qualitative differences between mobility groups. The significant effects were found only for groups with one-step mobility (both downward and upward) whereas no statistically significant effects were found across groups with "longer" mobility (two steps).
-
-Similarly, there is a prevalence of positive effects for the principle of Need. The exceptions here are Serbia (RS) and Slovakia (SK) where either upward or downward mobility is associated with lower support for this principle of justice. 
-
-Finally, as opposed to the other principles, the intergenerational mobility effects are generally associated with lower support for the principle of Entitlement.  
+ The within-country models depicted in @fig-tiles indicate that a pattern similar to that observed for the pooled models (@tbl-mobil) can be observed in France (FR) or Germany (DE), where maximum upward mobility (i.e., Level 1 to Level 3) is associated with an additional 0.3 and 0.4 units in the scale of Equality respectively (p<0.05 and p<0.01). However, not all countries match the general pattern in Europe. In two cases, Sweden (SE) and Slovakia (SK), upward mobility from Level 1 to Level 2 or Level 3, is associated with lower support for Equality. This suggests a notable country-level difference in relation to the effects of mobility on support for Equality that would be unobserved in the pooled model with country fixed effects. Finally, the Croatian (HR) case in this model presents evidence on the qualitative differences between mobility groups.  Significant effects were found only for groups with one-step mobility – downward and upward – whereas no significant relationship was found across groups with greater intergenerational mobility (i.e., a change in two levels).  
 
 <br>
 <br>

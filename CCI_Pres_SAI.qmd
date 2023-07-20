@@ -80,33 +80,24 @@ From 'Normal People' by Sally Rooney [-@rooney_normal_2018]
 
 # Question {background-color="#498b9dff" style="color: #fff;"}
 
-Is the experience of mobility associated with attitudes towards principles of social justice? 
-
-
-## Outline {background-image="./img/path.png" background-position="right" background-size="25%"} 
-
-- Previous studies  
-- Data and methods  
-- Results    
-- More questions  
-
+Is the experience of educational mobility associated with attitudes towards social justice? 
 
 # Previous studies {background-color="#498b9dff" style="color: #fff;"}
 
 
 
-## Social justice principles
+## Social justice principles {.smaller}
 
-Scales created by Hülle et al. [-@hulle_measuring_2018] based on the following principles:
+Scales created by Hülle et al. [-@hulle_measuring_2018] to assess the following principles:
 <br>
 
 - **Equality**: Everyone should receive the same in a society  
 
-- **Equity**: Benefits and burdens should be distributed according to individual investments
+- **Equity**: Benefits and burdens should be distributed according to individual investments  
 
-- **Need**: Everyone should receive enough to cover basic needs
+- **Need**: Everyone should receive enough to cover basic needs  
 
-- **Entitlement**: Benefits or burdens should be allocated according to achieved status such as gender, education, occupation, or origin 
+- **Entitlement**: Benefits or burdens should be allocated according to achieved status such as gender, education, occupation, or origin  
 
 
 ## Associated factors
@@ -145,10 +136,10 @@ Scales created by Hülle et al. [-@hulle_measuring_2018] based on the following 
 
 - **Outcome**: Equality, Equity, Need, Justice  
 
-- **Covariates**: Age, Gender, Feeling about household income, Parental educational 
-attainment (Origin), Respondent's educational attainment (Destination)
+- **Explanatory**: Mobility between Parental Education (Origin) and Respondent's Education (Destination)
 
-- **Explanatory**: Mobility between Origin and Destination
+- **Covariates**: Age, Gender, Feeling about household income, Parental educational 
+attainment, Respondent's educational attainment
 
 
 ## Mobility in Europe {.smaller}

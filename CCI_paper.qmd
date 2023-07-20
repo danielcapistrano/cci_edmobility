@@ -1,16 +1,29 @@
 ---
 title: "'I guess we are from very different backgrounds':"
-subtitle: "Educational Mobility and Attitudes Towards Social Justice in Europe"
+subtitle: "Attitudes towards Social Justice and Intergenerational Educational Mobility in European Societies"
 author: 
-    - Daniel Capistrano
-    - Mathew Creighton
-    - Ebru Işıklı
-abstract: "This paper addresses the relationship between intergenerational educational mobility and attitudes towards social justice.  We investigated if the type of mobility experienced  (upward, downward or no mobility) is associated with stronger support for different principles of social justice: Equality, Equity, Need, and Entitlement [@hulle_measuring_2018]. For that, we analysed national surveys from 29 countries participating in the European Social Survey in 2018. Using Mobility Contrast Models (MCM), we estimated the effect of educational mobility on social justice attitudes. Despite mixed results at the country level, the pooled sample indicate that upward mobility is a significant predictor of support for the Equality principle, with greater effects for longer mobility journeys"
+  - name: Daniel Capistrano
+    orcid: 0000-0002-8157-5564
+    affiliations:
+    - name: School of Sociology  
+    - name: Geary Institute for Public Policy  
+  - name: Mathew J Creighton
+    orcid: 0000-0002-1596-6049
+    affiliations:
+    - name: School of Sociology  
+    - name: Geary Institute for Public Policy  
+  - name: Ebru Işıklı
+    orcid: 0000-0002-5335-6495
+    affiliations:
+    - name: School of Sociology  
+    - name: Geary Institute for Public Policy  
+abstract: "This paper addresses the relationship between intergenerational educational mobility and attitudes in relation to fairness in European societies. The dimensions of fairness considered capture a broader notion of social justice by targeting four distinct principles: equality, equity, need and entitlement [@hulle_measuring_2018]. We investigate how attitudes towards those principles differ across individuals who experienced upward, stable, or downward trajectories of educational mobility in relation to their parents. To offer a comparative framework, we use nationally representative surveys of public opinion from 29 countries who participated in the 2018 round of the European Social Survey (ESS), which included a unique battery of questions on attitudes towards fairness. Using Mobility Contrast Models (MCMs), we identify the independent role of educational mobility in shaping attitudes regarding four types of fairness, which encapsulate the broader concept of social justice. We explore notable variation at the country level, although the pooled sample indicates that upward mobility significantly predicts a higher support for the principle of equality. In addition, this relationship is stronger among the more upwardly mobile (i.e., a greater difference between a respondent’s education and that of their parent)."
+keywords: "Social Justice; Education; Mobility; European Social Survey; Attitudes; Inequality"
 format:
-  pdf:
-    link-citations: true
-#   docx:
-#     reference-doc: _extensions/docx/uis_template.docx
+  docx:
+    reference-doc: refs/sir_template.docx
+  # pdf:
+  #   link-citations: true
 toc: false
 number-sections: true
 date-modified: "`r Sys.Date()`"
@@ -20,44 +33,38 @@ execute:
     message: false
     cache: false
 bibliography: refs/mobility.bib
-csl: refs/american-sociological-association.csl
+csl: refs/apa.csl
 ---
 
-*Keywords:  Social Justice; Education; Mobility; European Social Survey; Attitudes; Inequality*
 
 ```{r} 
 # Loading package with function to get formatted tables 
 library(gt)
 
 # Load data processed in 0_Processing.R
-load("./code/data/ess_cci.RData")
-
+load("./code/data/ess_cci_mi.rds")
 ```
 
+
 # Introduction
+Inequality and social justice are a focus of two interrelated literatures. First, research has tracked a notable rise in social and economic inequality and underlined the implications of this trajectory for many [@savage_return_2021]. Second, a global development policy agenda emerged, which focused on policy-oriented approaches to address the observed trend towards greater inequality [@fukuda-parr_keeping_2019]. Both trends in the literature are broadly interested in reducing inequality as a pathway towards greater social justice However, empirical evidence - relevant for both for work on trends in inequality and that which seeks to intervene – remains limited particularly in regards to public perception. We know relatively little about how inequalities shape individuals perception of social justice and the key determinants of those views [@benson_attitudes_2021]. This limited insight is increasing relevant as everal studies reveal clear social and political consequences of attitudinal responses to a drift away from social justice and inequality [@adriaans_fairness_2023]. That said, there is a welcome and emergent literature that has considered the determinant of welfare attitudes [@oorschot_recent_2022], attitudes  towards income inequality [@clark_attitudes_2015] ( and social justice [@adriaans_basic_2022; @reyes_are_2022; @steele_attitudes_2019]. This work adds an important dimension by considering multiple generations. The intention is to offer a key perspective that assesses the role of intergenerational mobility, specifically educational, using an international comparative approach. 
 
-Inequality and social justice are pressing topics for academics and policy makers in the first quarter of this century. From one side, a solid research agenda has been assessing the rising in social inequalities and its consequences [@savage_return_2021]. On the other side, a global development policy agenda has been established with a strong focus on these topics [@fukuda-parr_keeping_2019]. However, there is still a lack of evidence on both sides about how individuals perceive and view social justice and what are the factors that influence those views [@benson_attitudes_2021], despite several studies observing relevant social and political consequences of social justice and inequality attitudes [@lei_revisiting_2020; @jo_enigmas_2019; @castillo_inequality_2015, @adriaans_fairness_2023]. Despite a relatively recent research agenda on factors associated with welfare attitudes [@oorschot_recent_2022], income inequality [@clark_attitudes_2015] and social justice attitudes [@steele_attitudes_2019; @reyes_are_2022; @adriaans_basic_2022], there is still insufficient evidence on the determinants of such attitudes, especially the role of educational mobility. 
+Specifically, two main contributions result. First, the focus on intergenerational mobility provides a more complete understanding of the influence of social stratification by assessing social positions not only within but also across generations. Secondly, this approach also underlines the importance of education as a social process that goes beyond human capital acquisition, shaping perceptions and normative attitudes. In this sense, intergenerational mobility in educational attainment translates into more than a change in material conditions (i.e. occupation, income) but also a mechanism that shapes views on societal equity and social justice. What emerges is an approach driven by the following core research question:
 
-In this work, we contribute to expanding this literature by investigating the relationship between attitudes towards social justice and educational mobility. Two main aspects are important in this endeavour. First, the focus on mobility which provides a more complex understanding of the influence of social stratification by assessing social positions not only within but also across generations. Secondly, this approach also emphasises education as a social process that goes beyond human capital acquisition, shaping perceptions and normative attitudes in relation to social matters. In this sense, intergenerational mobility in educational attainment translates not only into a change in material conditions (i.e. occupation, income) but also in the way individuals view social justice. 
+*Does the experience of upward, stable or downward mobility shape attitudes regarding the principles of social justice?*
 
-With this intent, we investigated the relationship between intergenerational educational mobility and attitudes towards social justice aiming to respond the following two main questions:
-
-1) Does the experience of upward mobility predict attitudes towards principles of social justice?  
-2) Is the educational level of the origin (parental) or the destination (respondent's) more influential in shaping attitudes toward social justice?  
- 
-In this the subsequent sections, we briefly discuss previous studies about the impact of intergenerational educational mobility as well as research on determinants of attitudes towards social justice. This is followed by a description of the methods and data utilised in this analysis. Finally, we report on the main results from this investigation emphasising the research and policy implications of the findings.
-
+In subsequent sections, we briefly discuss previous studies about the impact of intergenerational educational mobility as well as research on determinants of attitudes towards social justice. This is followed by a description of the methods and data utilised in this analysis. Finally, we return to the question above when we report the main results underlining the research and policy implications of the findings.
 
 
 # Literature Review
 
-Several works over the past decades found solid evidence that one's position within a stratified social order shapes their views about inequality, social justice and welfare [e.g. @alwin_aging_1991; @svallfors_contested_2012; @rodon_how_2020; @jasso_new_2021]. The general idea underlying this conception is that individuals who share the same social position would also share a similar view about the prevailing socioeconomic order. But what happens when an individual changes their position within this stratified order? Do their attitudes reflect the prevailing views of their original or their destination positions?  
+Several works over the past decades provide evidence that one's position within a stratified social order shapes their views about inequality, social justice and welfare [e.g. @alwin_aging_1991; @svallfors_contested_2012; @rodon_how_2020; @jasso_new_2021]. The general conclusion is that individuals who share the same social position would also share a similar view about the prevailing socioeconomic order. But what happens when an individual changes their position within this stratified order? Under conditions of mobility, the link between social position and perception is less clear as it is determined by both one’s original and destination positions.
 
-We argue that education is an ideal process to investigate these questions.Intergenerational educational mobility is a widely used measure of societal fluidity. In addition, formal education institutions in contemporary European societies provide the main space in which socialisation (i.e., the introduction of the rules/norms/expectations of society) occurs, which is a crucial dimension of attitudinal formation. For some, educational mobility is a subset of a broader process of social mobility, reflecting the idea that intergenerational mobility is reflective of a more equitable society where one’s social origins are less determinant of outcomes [@esping-andersen_welfare_2015; @hout_what_2006]. Some point out that  education is no longer a clear engine of mobility [@brown_education_2013], particularly in contexts where there is less mobility as a consequence higher levels of schooling enabled by the rapid expansion of educational systems. Thus, it is reasonable to assume that education may not predict social position as much as it does in moments/contexts where the expansion of educational systems has been slower [@marshall_social-class_1993; @breen_educational_2010].  
+Education is an ideal process to investigate these questions as educational mobility is a widely validated measure of societal fluidity [@dolton_multi-country_2009]. For some, educational mobility is a subset of a broader process of social mobility, reflecting the idea that upward intergenerational mobility is reflective of a more equitable society where one’s social origins are less determinant of outcomes [@esping-andersen_welfare_2015; @hout_what_2006]. In addition, formal education institutions in contemporary European societies provide the main space in which socialisation (i.e., the introduction of the rules/norms/expectations of society) occurs, which is a crucial dimension of attitudinal formation [@davis_achievement_1982; @spruyt_education-based_2015]. Similarly, some studies have also pointed out the role of educational mobility on perception of social phenomena. For instance, educational attainment is seen as an important predictor for openness towards globalisation, but as Kunst et al. [-@kunst_as_2023] show using European Social Survey data, there is an enduring influence of parental educational level on the respondents’ views. Using the same data, Creighton et al. [-@creighton_educational_2022] found that upward educational mobility can moderate antipathy towards immigration. Gros [-@gros_educational_2003] shows that perceived inequality is determined by the educational system, which is shaped by social mobility. Some point out that education is no longer a clear engine of mobility [@brown_education_2013], particularly in contexts where there is less mobility due to higher levels of schooling among the origin generation (i.e., parents) enabled by the rapid expansion of educational systems. In these contexts, education might not predict social position as much as it does in moments/contexts where the expansion of educational systems has been slower or more recent [@breen_educational_2010; @marshall_social-class_1993].
 
-Regardless of the prevalence of educational mobility in a given society, several studies have identified important consequences of this type of mobility. For instance, educational attainment is seen as an important predictor for openness towards globalisation, but as Kunst et al. [-@kunst_as_2023] show using European Social Survey data, there is an enduring influence of parental educational level on the respondents' views. Using the same data, Creighton et al. [-@creighton_educational_2022] found that upward educational mobility can moderate antipathy towards immigration.
+Social mobility studies have mainly measured the perception of fairness of personal experience. For instance, individuals with similar educational backgrounds may hold different views about the fairness of their conditions based on their experiences of intergenerational educational mobility. Lavrijsen and Nicaise  [-@lavrijsen_secondary_2016] have demonstrated that educational mobility can predict individuals' perceptions of educational fairness. While studies often measure the level of fairness experienced by individuals, there is often a lack of understanding regarding what individuals actually mean by fairness or how they prefer to frame it. In fact, there has been limited exploration of the principles of fairness on redistributive policy [@rodon_how_2020]. Consequently, there is a need to place greater emphasis on the underlying principles of fairness that individuals utilize to frame their perspectives.
 
-Similarly, some studies have also pointed out the role of educational mobility on perception of social phenomena. Lavrijsen & Nicaise  [-@lavrijsen_secondary_2016, pp. 25-42] have shown that educational mobility can predict the perception of educational fairness. Gross [-@gros_educational_2003] shows that perceived inequality is determined by the educational system, which is shaped by social mobility.  
+Educational mobility not only influences individuals' reflexive views based on their personal circumstances but also shapes their non-reflexive perceptions of fundamental normative principles regarding distributional justice. In highly stratified societies like the United States, Heiserman et al. [-@heiserman_judgments_2020] found that perceived economic mobility shapes respondents' perception of fairness but not inequality. This suggests that in certain contexts, high social mobility can foster tolerance for inequality. Our perception of how society should allocate resources – to ourselves and others – is meaningful and plausibly determined by our own experience of mobility [@reyes_are_2022]. Voting behaviour also reflects divergent preferences for distributive policies depending on social mobility, as highlighted by Piketty [-@piketty_social_1995] and specifically on the direction of educational mobility, as noted by McNeil [@mcneil_intergenerational_2022]. Torul, Oztunali, and Yildirim [-@torul_intergenerational_2018] predicted preferences for distributive policies and found that individuals with lower educational mobility tend to favour the principle of equality less. They used single variable from European Values Survey [-@european_social_survey_ess_2018] on income level with the exclusive options.1 However, it is important to recognize that conflicting perceptions regarding distributive principles can coexist within society [@rodon_how_2020]. To better capture this conflict, Hülle [-@hulle_measuring_2018] developed the Order-Related Justice Scale, which allows for a more nuanced understanding of individuals' preferences for redistributive principles. Despite these developments, the impact of educational mobility on perceptions of the fairness of distributive principles remains largely unexplored. Therefore, there is a need for further research in this area to shed light on the role of educational mobility in shaping individuals' perspectives on the fairness of distributive principles.
 
 
 # Methods
@@ -65,52 +72,143 @@ Similarly, some studies have also pointed out the role of educational mobility o
 
 ## Data 
 
-The analysis is based on the rotating module of the European Social Survey Round 9 on justice and fairness. The European Social Survey (ESS) is a biennial cross-national survey of attitudes and employs cross-sectional, probability samples that are representative of the population aged 15 and above living in private households in each country. The analytical sample of this study includes data from all the 29 participating countries and excludes observations from respondents who were still in formal education age (24 or younger). This decision is due to the centrality of education attainment in this study. The inclusion of respondent who could still be in formal education would directly affect the analysis. 
+The analysis is based on the rotating module of the European Social Survey (ESS)[^1] Round 9 on justice and fairness. The analytical sample of this study includes representative samples from all the 29 participating countries [^2]. Respondents who were still plausibly completing their formal education (i.e., aged 24 or younger) were excluded. This decision, which is common in the literature, is due to the need to maximally capture completed schooling and results in a final sample of `r format(nrow(ess_cci), big.mark =',')` observations. For all variables that were used in this analysis, the proportion of missing values was lower than 5%. However, considering that we expect that missing values, particularly in relation to parental education, is affected by respondent characteristics (e.g. age, income), we replaced missing responses using an iterative multiple imputation method based on the random forest algorithm introduced by Stekhoven & Bühlmann [-@stekhoven_missforestnon-parametric_2012] [^3]. The main tables of this paper are reproduced in the Appendix using a reduced sample from the original data after listwise deletion. Although some differences can be observed in the number of statistically significant effects comparing the imputed and the reduced sample, the results are consistent across methods.
 
-Removing the observations of younger respondents resulted in a final sample of `r nrow(ess_cci)` observations. For all variables that were used in this analysis, the proportion of missing values was lower than 5%. However, considering that we expect that missing values, particularly in relation to parental education, is affected by respondent characteristics (e.g. age, income), we do not assume it to be missing completely at random. 
+[^1]: The European Social Survey (ESS) is a biennial cross-national survey of attitudes and employs cross-sectional, probability samples that are representative of the population aged 15 and above living in private households in each country.
 
-In this sense, the missing values were replaced using an iterative multiple imputation method based on the random forest algorithm introduced by Stekhoven & Bühlmann [-@stekhoven_missforestnon-parametric_2012]. For that, we have used the R Package 'MissRanger' [@mayer_missranger_2023], which improves the computational performance of the algorithm and combines it with predictive mean matching avoiding the imputation of values that are not present in the observed data. The main tables of this paper are reproduced in the Appendix using a reduced sample from the original data after listwise deletion. Although some differences can be observed in the number of statistically significant effects comparing the imputed and the reduced sample, the main conclusions of the study are similar for both methods. 
+[^2]: Austria, Belgium, Bulgaria, Switzerland, Cyprus, Czechia, Germany,  Denmark,  Estonia,  Spain,
+Finland, France, United Kingdon, Croatia, Hungary,
+Ireland, Iceland, Italy, Lithuania, Latvia, Montenegro,  Netherlands, Norway, Poland, Portugal, 
+Serbia, Sweden, Slovenia, and Slovakia.
+
+[^3]: All imputation is done using the R Package ‘MissRanger’ [@mayer_missranger_2023], which improves the computational performance of the algorithm and combines it with predictive mean matching avoiding the imputation of values that are not present in the observed data.
 
 
-## Outcome variables
+## Measuring social justice {#sec-bsjo}
 
                    
-The theoretical framework underlying the outcome variables emphasises the importance of investigating individuals' normative orientations in relation to how society should be organised in order to explain objective conditions of inequality and social justice [@hadler_why_2005]. Following this principle, Hülle et al. [-@hulle_measuring_2018] propose a quantitative assessment of individuals' normative orientations in relation to social justice. The Basic Social Justice Orientations (BSJO) scale include questions validated originally using social surveys in Germany but that have also been tested in different European contexts [@van_hootegem_measuring_2021; @adriaans_fairness_2023].
+The theoretical framework underlying the outcome of interest (i.e., social justice) emphasises the importance of an individuals' normative orientation in relation to how society *should* be organised in order to explain objective conditions of inequality and social justice [@hadler_why_2005]. Following this principle, Hülle et al. [-@hulle_measuring_2018] propose a quantitative assessment of these expectations termed the Basic Social Justice Orientations (BSJO). This is a scale that includes questions validated originally using a number of social surveys in Germany, which were later tested in the field in different European contexts [@van_hootegem_measuring_2021; @adriaans_fairness_2023].
 
-The questions designed by Hülle et al. [-@hulle_measuring_2018] aimed at assessing the following  four principles of social justice:  i) the idea that everyone should receive the same in a society (equality) ii) the idea that benefits and responsibilities should be distributed according to individual investments (equity); iii) the idea that everyone should get enough to cover basic needs; and iv) the idea that benefits or burdens should be allocated according to achieved status such as gender, education, occupation, or origin (entitlement). The support for these principles were evaluated through the level of agreement in relation to four statements that were preceded by the following question: "*There are many different views as to what makes a society fair or unfair. How much do you agree or disagree with each of the following statements?*"  The exact wording of the statements and their respective associated principles are shown in Table 1. 
+`[Table 1 here]` 
 
+
+The BSJO is derived from a set of questions designed by aimed at assessing to assess the following four principles of social justice using a terminology of fairness: :  i) the idea that everyone should receive the same in a society (equality) ii) the idea that benefits and responsibilities should be distributed according to individual investments (equity); iii) the idea that everyone should get enough to cover basic needs; and iv) the idea that benefits or burdens should be allocated according to achieved status such as gender, education, occupation, or origin (entitlement)  [@hulle_measuring_2018]. The support for these principles were evaluated through the level of agreement in relation to four statements that were preceded by the following question:  
+
+"*There are many different views as to what makes a society fair or unfair. How much do you agree or disagree with each of the following statements?*".[^4] 
+
+The exact wording of the statements and their respective associated principles are shown in Table 1. 
+
+The exact wording of the statements and their respective associated principles are shown in Table 1 and correspond directly to each of the four principles defined by Hülle et al. [-@hulle_measuring_2018]. The result is a broad scale of perception of social justice built upon a foundation that uses the more approachable terminology of fairness. 
+
+[^4]: The responses were recorded through a 5-point agreement scale with the following options: "Agree strongly", "Agree", "Neither agree nor
+disagree", "Disagree", and "Disagree strongly". The original scale was inverted so higher values denote higher level of agreement, ranging from 1 to 5. 
+
+
+## Measuring intergenerational educational mobility {#sec-educ}
+
+International comparative work on education must overcome non-trivial country-level variation in educational systems. The best approach is to rely on the International Standard Classification of Education (ISCED) [@unesco_institute_for_statistics_international_2012], which is the approach taken in the ESS. However, instead of a direct replication of the ISCED levels that are intended for comparative work at a global scale, the ESS devises a scheme that is more nuanced and takes into account some of the unique features of the European context [@schneider_guidelines_2020]. To facilitate comparability, the  measure of education considers information on ‘programme orientation’, ‘programme duration’ and ‘order in the national degree and qualification structure’. At the same time, it reduces the number of ISCED levels as to aggregate levels for which the distinction is not relevant in contemporary Europe. An example of this is the combination of “less than primary education” and “primary education” into a single category. The result is a seven-level measure of attained education (*eisced*) that includes the following categories: (L1) less than lower secondary; (L2) lower secondary; (L3) lower tier upper secondary; (L4) upper tier upper secondary; (L5) advanced vocational, sub-degree; (L6) lower tertiary education, BA level; and (L7) higher tertiary education, >= MA level. This measure is available for both respondents and respondents’ parents. Of note, parental education refers to highest attained education as reported by the respondent. When relevant, the highest education among both parents is the one used.
+
+The ESS-adapted ISCED measure of education offers a consistent and comparable measure for the  the pooled sample of all countries. However, due to the relatively small sample sizes found within countries for some levels of schooling, the available scale was altered to allow for enough observations in each cell to permit the population of a mobility table. For all international comparative analysis, the educational attainment is captured by the following three categories: until lower secondary (L1 and L2); upper secondary (L3 and L4); and advanced vocational, lower and higher tertiary (L5, L6, L7). This default recoding of the educational variable was applied to 19 countries only[^5].
+
+The remaining 10 countries[^6] had their education variables recoded slightly differently to account for contextual factors, as the focus of the analysis is not comparing attainment but comparing mobility trajectories (i.e., the difference in attained education between respondents and their parents). In Italy, Portugal and Spain, for instance, the following three levels were created as more than half of the distribution for parental education is located at the lowest level: primary (L1); lower and upper secondary (L2, L3 L4); and advanced vocational, lower and higher tertiary (L5, L6, L7). One of the advantages of these three-level scales is that it provides separation for meaningful qualitative differences in completed schooling. For example, the upward mobility from secondary to tertiary education is qualitatively different than mobility within the secondary level (lower tier and upper tier), considering all the educational and cultural differences between secondary school and universities. 
+
+The result is measure of education that allows for respondents’ own education to be directly compared to the generation prior (i.e., their parents) and the completed education of respondents’ and their parents in other country contexts. This permits an internationally comparable measure of intergenerational educational mobility, which offers a unique opportunity to consider cross-country variation in family-level educational trajectories and, moreover, the link between these trajectories and the outcome of interest – social justice.
+
+[^5]: Austria, Belgium, Bulgaria, Switzerland, Cyprus, Germany, Denmark, Finland, France, United Kingdom, Croatia, Hungary, Ireland, Lithuania,  Montenegro,  Netherlands, Poland, Serbia, and Slovenia.
+
+[^6]: Czechia, Estonia,  Spain, Iceland, Italy, Latvia, Norway, Portugal, Sweden, and Slovakia.
+
+## Sociodemographic and socioeconomic attributes of the individual
+
+Although observational data is limited, to better identify the role of the hypothetical explanatory mechanism of interest (i.e., intergenerational educational mobility), we take into consideration a number of empirically relevant sociodemographic and socioeconomic attributes of the individual such as age, gender and perception of household income. Previous studies have indicated that the sociodemographic attributes of gender and age are relevant variables to explain attitudes and perceptions about fairness and justice with women showing stronger support for principles related to equality and need and men supporting more principles of equity and entitlement  [@hulle_measuring_2018; @adriaans_gender_2023] 
+
+As for socioeconomic measures, we consider the current material conditions of respondents, which are one of the major influences for normative views about equality [@clark_attitudes_2015; @benson_attitudes_2021]. Although the ESS asks respondents their household income, there is a notably high proportion of missing values for this variable (*hinctnta*) with 23% of cases without a valid answer in the pooled sample, and up to 40% in countries like Italy and Hungary. Therefore, we used an attitudinal measure that provides a subjective assessment of the respondents’ material circumstances. Participants were asked which of the following sentences best described their “feeling about their household income nowadays”: “Living comfortably on present income”, “Coping on present income”, “Finding it difficult on present income”, or “Finding it very difficult on present income”. The result is, in some ways, more relevant for assessing perception of fairness as it offers a relative view – rather than an absolute measure of earned income – of socioeconomic wellbeing.
+
+`[Table 2 here]` 
+
+Of course, country contexts are different in more ways than can be observed by straightforward sociodemographic and socioeconomic measures of the individual. As the key explanatory measure (i.e., intergenerational educational mobility) is directly observed, we elected to account for between country differences for all 29 participating countries using country fixed effects [@allison_fixed_2009]. 
+
+@tbl-desc shows the mean values and standard error of the outcome variable by selected covariates. As alluded to in the section describing the intergenerational educational mobility, the three-level measure of education of in @tbl-desc was used for the analysis by country. The analysis of the pooled sample, which included all 29 countries used the original 7-level scale (*eisced*).
+
+A few points stand out from the descriptive statistics presented in @tbl-desc. First, there is clearly less overall support for the principle of Entitlement and stronger support for the principle of Equity, which goes in the same direction of a pattern observed elsewhere (e.g., @adriaans_justice_2020). Second, the sociodemographic and socioeconomic attributes match their expected relationship to the four measures of social justice.  For instance, women tend to give more emphasis to the principle of Equality whereas men tend to emphasise Equity. In addition, older respondents and those with worse economic conditions tend to support the principle of Equality more compared to younger respondents and those with better economic conditions, respectively. Finally, in relation to the targeted explanatory mechanism (i.e., intergenerational educational mobility), there is a higher support for Equality among those with lower educational attainment and also those whose parents have lower educational attainment. In terms of mobility,  mobile respondents present lower average support for the principle of Equality compared to non-mobile ones. These descriptive trends are limited in the extent to which they can be interpreted. To offer greater precision and clearer tests of difference, we turn to a multivariate approach.
+
+
+## Mobility Contrast Model (MCM)
+
+An interest in mobility – both occupational and educational – is not new. Initial strategies to investigate the effect of social mobility on social outcomes compared the average values in outcomes of interest between mobile and non-mobile individuals. However, as initially argued by Duncan [-@duncan_methodological_2018], mobility is a dynamic process that involves both origin status (e.g., parental education) and a destination status (e.g., one’s own education), which should not be considered independently. To jointly account for origin and destination status, the most common approach to date is the Diagonal Mobility Model (DMM), which is sometimes referred to as the Diagonal Reference Model (DRM), which emerged in the 1980s  [@sobel_diagonal_1981; @sobel_social_1985]. The innovation of the model is the possibility of separating the role of mobility from that of the origin and destination statuses and, as such, the DMM enjoys widespread usage in the literature on social, educational, and occupational stratification [e.g., @zang_mobility_2023; @creighton_educational_2022]. 
+
+However, as demonstrated by Luo [-@luo_heterogeneous_2022], DMMs can be limited in two ways. First, the accuracy of the estimation is affected in cases where there  is a significant proportion of mobile individuals. Because the model relies on the observed values of the non-mobile individuals as reference, which constitutes the diagonal in the underlying mobility table, too much mobility can make the reference unreliable. In our pooled sample, about two thirds of the respondents are mobile, which is a cause for concern.  Secondly, although DMMs provide a parsimonious and insightful estimate to evaluate importance/weight of origin and destination education in its equation, they do not discriminate between heterogeneous effects of mobility, which can result  from the direction of the move (upward vs. downward) or range of the mobility, defined by the number of levels between origin and destination. 
+
+To deal with these methodological concerns, we adopted a more recent approach called Mobility Contrast Model (MCM), which was recently developed by Luo [-@luo_heterogeneous_2022]. If the mobility effects are similar among mobility groups, both the DMM and the MCM should provide similar results. However, as we expect to observe different effects on social justice attitudes depending on the direction and range of mobility, which is indicated in the descriptive statistics in @tbl-desc, the MCM is the preferred approach as it provides better estimates for those heterogeneous effects. 
+
+# Results
+
+As alluded before, the analysis involves two sequential steps. The first comprises the estimation of mobility effects on the four outcome variables using the pooled sample, which includes the samples from all 29 participating countries. The second analyses the sample from each country separately. The model specification and covariates are the same for both analyses, with the exception of the change in the measure of intergenerational educational mobility, which is described in more detail in @sec-educ.
+
+`[Table 3 here]` 
+
+
+## Mobility effects (all countries)
+
+@tbl-mobil reports the estimates, as coefficients in a mobility table, for the pooled model that includes samples from all 29 countries. The first clear result is that there are notable differences in the relationship between intergenerational educational mobility and attitudes towards social justice depending on the principle being assessed – Equity vs. Equality vs. Need vs. Entitlement. That said, some general patterns emerge. For example, with few exceptions, no mobility path is a significant predictor of support for the principles of Equity, Need or Entitlement. The only prominent exception is for downward mobility and Need where a trajectory that moves from the highest level of completed education for the parent (i.e., Level 7) to a lower level (i.e., Level 3) for the respondent significantly predicts greater support. An effect in a similar magnitude is also detected for another downward trajectory in the same principle (from Level 5 to Level 2).  
+
+The principle of Equality stands out as the analysis provides evidence that intergenerational educational mobility has a meaningful and significant association. The strongest relationship is found among those who finished the Level 6 and whose parents completed either the lowest educational level (\beta = 0.226, p <.01), or the second lowest level (\beta = 0.224, p <.05). These are individuals experiencing a notably high level of upward intergenerational educational mobility. The observed increase in the effect size (from L5 to L6) also suggests that greater upward mobility results in increasing support for the principle of Equality. No significant downward mobility effects were detected in the model.
+
+Although not reported in Table 3, it is worth noting that the sociodemographic and socioeconomic measures follow the pattern first observed in the descriptive statistics in @tbl-desc. For example, women tend to support the principle of Equality more (\beta = 0.039, p <.001) and the principle of Equity less (\beta = -0.037, p <.001) compared to men. For the other two measures of social justice (i.e., Need and Entitlement), no meaningful relationship was observed. Those with a worse perception of  socioeconomic conditions also report, on average, greater support for both the principle of Equality and Need. Older respondents support the principle of Equity and Need more than younger respondents, and support less the principle of Entitlement. 
+
+For the direct association between educational attainment – of the parent and respondent –  and social justice, only two levels for the principle of Equality indicate a significant difference compared to the other levels. Specifically, Respondents whose parents had less than a lower secondary degree tend to support the principle of equality more compared to respondents whose parents had a master or doctoral degree (\beta = 0.119, p <.001). Regarding respondents’ own educational attainment, no clear pattern was observed across the principles of Equity, Need and Entitlement. However, for the principle of Equality, those with an educational attainment lower than upper secondary, tend to support this principle more compared to those with master and doctoral degree. Furthermore, those with post-secondary vocational education and bachelor’s degree are predicted to show lower support for Equality compared to those with the highest level of educational attainment. The complete model, including estimates for all included sociodemographic and socioeconomic measures, is shown in the Appendix.
+
+`[Insert Figure 1 here]`
+
+## Mobility effects (by country)
+
+
+Let’s consider the general pattern in the analysis of the pooled sample. Those whose origins lie in the lowest levels, and destination in the highest levels, were shown to have a meaningfully greater support that society should be defined by greater social equality (see @sec-bsjo). The within-country models depicted in @fig-tiles indicate that a pattern similar to that observed for the pooled models (@tbl-mobil) can be observed in France (FR) or Germany (DE), where maximum upward mobility (i.e., Level 1 to Level 3) is associated with an additional 0.3 and 0.4 units in the scale of Equality respectively (p<0.05 and p<0.01). However, not all countries match the general pattern in Europe. In two cases, Sweden (SE) and Slovakia (SK), upward mobility from Level 1 to Level 2 or Level 3, is associated with lower support for Equality. This suggests a notable country-level difference in relation to the effects of mobility on support for Equality that would be unobserved in the pooled model with country fixed effects. Finally, the Croatian (HR) case in this model presents evidence on the qualitative differences between mobility groups.  significant effects were found only for groups with one-step mobility – downward and upward – whereas no significant relationship was found across groups with greater intergenerational mobility (i.e., a change in two levels).
+
+For the principles of Equity and Need, there are divergent mobility effects across countries, but the direction of the effect seems consistent within countries. Taking these two models together, we found 11 countries where mobility predicts *exclusively* lower support for the principle, and 6 countries where mobility predicts *exclusively* greater support. Only in 2 countries (Spain and Iceland) both negative and positive mobility effects were detected.  
+
+Finally, the model for principle of Need suggests a different pattern compared to the models of the other three principles in one aspect. Whereas for the other principles the significant mobility effects are roughly balanced between downward and upward trajectories, the effects of mobility on support for Entitlement seems to be concentrated in the downward trajectory (12 cells) as opposed to the upward trajectory (6 cells). The samples from 7 countries[^7]  out of a total of 29 participating countries, did not indicate any statistically significant mobility effect[^8]. @fig-tiles shows the coefficients of the mobility effects for all the remaining countries.
+
+[^7]: Estonia, Finland, United Kingdom, Ireland, Netherlands, Norway, and Poland. 
+[^8]: Of note, the Appendix presents the coefficients for the mobility effects across all countries and outcomes for all variables included in the models.
+
+
+
+# Discussion
+
+The book 'Normal People' by Sally Rooney [-@rooney_normal_2018] offers a literary portrayal of the social phenomenon observed in this study. Connel, one of the main characters, comes from a working-class family in the country side and is admitted to study in a prestigious university in the capital. The story develops around his relationship with Marianne, who is also studying at the same university and is from a wealthy background with her mother being the employer of Connel's mother. In a passage of the book, they are having a coffee together after receiving the news that both of them got a scholarship, but one of Marianne's friend did not get it.  After a discussion about merit that exposed different views on who deserves scholarships and why, Connel suggests that their views differ due to their trajectories: "I guess we’re from very different backgrounds" [@rooney_normal_2018, p. 123]
+
+The theme of a relationship across different social classes is surely not new. But this story in particular unveils subtleties about two individuals who had similar formal education (studying in the same secondary school and university) but whose parents had different educational and social experiences and how this affects their views of society, what is fair and what is just. 
+
+The analysis presented in this work offers empirical evidence about the influence of those educational trajectories. After assessing the relationship between intergenerational educational mobility and support for different Social Justice principles in 29 European countries, we found that upward mobility is associated with higher support for the idea that a society is fair when income and wealth are equally distributed among all people. 
+
+To put this in perspective it is helpful to return to the initial research question – Does the experience of upward, stable or downward mobility shape attitudes regarding the principles of social justice? The answer is definitively yes, but the nuance is important.
+
+First, mobility is not universally relevant for our perception of fairness. Equity, Need, and Entitlement, all meaningful dimensions of social justice, indicated little direct association with the pattern of mobility overall and within countries. In other words, social justice is perhaps too broad a concept to definitively link to educational mobility in Europe. It would be worth exploring other dimensions of mobility (e.g., occupational) to draw a clearer picture of the overall link between mobility and social justice. This heterogeneous pattern, which is observed across dimensions of social justice and country contexts, underlines the methodological contribution of the work. 
+
+Specifically, the Mobility Contrast Model (MCM) permits different associations between perception of distinct dimensions of social justice and educational mobility depending on the direction and range of the observed mobility. This approach proved useful as the results indicate that the degree of mobility (i.e., the distance between origin and destination educational attainment) mattered. Other widely used approached such as the Diagonal Mobility Model (DMM) do not offer variation in the estimates by distinct mobility trajectories to emerge.
+
+Although this work is an important step toward introducing mobility into our understanding of social justice – or at least how social justice is perceived – there are a number of limitations that deserve mention. First, upward mobility for education is constrained by an identifiable ceiling. In short, once the origin generation reaches tertiary schooling, the destination generation, at best, can reproduce the attainment of their parents. Of course, one could explore school quality or prestige, but an attainment-based mobility approach does not offer that sort of insight. Second, education is only an imperfect proxy for socialization into distinct views of social justice, defined by the measures of fairness included in this work. There are limits to assuming uniformity in experience across such diverse country settings and the variation in the country-specific models suggest that within-country differences matter. Third, the origin/parental education is measured using the recall of the respondent (i.e., the destination). The question is reasonable, and recall would plausibly be quite good, but the measure does not indicate influence so the role of the most educated parent is never made explicit.
+
+Overall, we consider this work to clearly show the relevance and importance of using flexible and powerful models to assess the role of educational mobility on support for four dimensions of social justice. Despite the limitations, the general patterns that some dimensions of social justice are linked to mobility patterns, particularly when economic factors are taken into account. To the extent that how fair society is perceived is relevant, understanding the opportunities for intergenerational educational mobility can lead to a more positive view of social justice more broadly in a society is a valuable lesson.
+
+
+
+# References
+
+
+
+# Tables
 
 
 | Principle   | Variable      | Wording        |
 |-------------|---------------|----------------|
 | Equality    | sofrdst       | A society is fair when income and wealth are equally distributed among all people                                    |
 | Equity      | sofrwrk       | A society is fair when hard-working people earn more than others                                                     |
-| Need        | sofrpr        | A society is fair when it takes care of those who are poor and inn need regardless of what they give back to society |
+| Need        | sofrpr        | A society is fair when it takes care of those who are poor and in need regardless of what they give back to society |
 | Entitlement | sofrprv       | A society is fair when people from families with social status enjoy privileges in their lives        between               |
 :Wording of the outcome variables and respective social justice principle {#tbl-wording tbl-colwidths="[15,15,70]"}
 
-The responses were recorded through a 5-point agreement scale with the following options: "Agree strongly", "Agree", "Neither agree nor
-disagree", "Disagree", and "Disagree strongly". The original scale was inverted so higher values denote higher level of agreement, ranging from 1 to 5. 
-
-
-## Explanatory variable
-
-The measurement of educational attainment level in the European Social Survey is based on the International Standard Classification of Education (ISCED) [@unesco_institute_for_statistics_international_2012]. However, instead of a direct replication of the ISCED levels, the ESS devises a scheme that takes into account the European context. In this way, to facilitate comparability, the variable levels consider information on ‘programme orientation’, ‘programme duration’ and ‘order in the national degree and qualification structure’. At the same time, it reduces the number of ISCED levels as to aggregate levels for which the distinction is not relevant in Europe today such as "less than primary education" and "primary education" [@schneider_guidelines_2020]. The resulting seven levels from the ESS educational attainment variable (*eisced*) are: (L1) less than lower secondary; (L2) lower secondary; (L3) lower tier upper secondary; (L4) upper tier upper secondary; (L5) advanced vocational, sub-degree; (L6) lower tertiary education, BA level; and (L7) higher tertiary education, >= MA level. 
-
-This variable is utilised as it is in the dataset for the analysis of the pooled sample of all countries. However, due to the relatively small sample sizes found within countries, these categories were collapsed to allow for enough observations in each cell of the mobility tables. For the analysis comparing different countries, the educational attainment is measured in the following three categories: until lower secondary (L1 and L2);  upper secondary (L3 and L4); and advanced vocational, lower and higher tertiary (L5, L6, L7). This default recoding of the educational variable was applied to 19 countries only. The remaining 12 had their education variables recoded slightly difference to account for specific contexts, as the focus of the analysis is not comparing attainment but comparing mobility. In Italy, Portugal and Spain, for instance, the following three levels were created as more than half of the distribution for parental education is located at the lowest level: primary (L1); lower and upper secondary (L2, L3 L4); and advanced vocational, lower and higher tertiary (L5, L6, L7)
-
-Despite reducing variance, one of the advantages of this recoding of levels is that it provides separation between qualitative differences. It is reasonable to argue that mobility between a bachelor degree and a masters degree is qualitatively different than mobility between upper secondary level and tertiary level. 
-
-
-## Covariates
-
-The analysis takes into consideration a group of covariates such as age, gender and feeling about household income. Previous studies have indicated that gender and age are relevant variables to explain attitudes and perceptions about fairness and justice [@hulle_measuring_2018; @adriaans_gender_2023] with women showing stronger support for principles related to equality and need and men supporting more principles of equity and entitlement.  
-
-Considering that the current material conditions are one of the major influences for normative views about equality we include in our analysis a variable assessing this dimension. Although the ESS asks respondents on their household income, there is a high proportion of missing values for this variable (*hinctnta*) with 23% of cases without a valid answer in the pooled sample, and up to 40% in countries like Italy and Hungary. Therefore, we used a variable that provides a subjective assessment of the respondents' material conditions. Participants were asked which of the following sentences best described their "feeling about their household income nowadays": "Living comfortably on present income", "Coping on present income", "Finding it difficult on present income", or "Finding it very difficult on present income". 
-
-Finally, for the analysis using the pooled sample with all 29 participating countries, we included country fixed-effects in the models to take the cross-national variation into account [@allison_fixed_2009]. 
-
-@tbl-desc below shows the mean values and standard error od the mean for outcome variable by covariates. As alluded in the section describing the explanatory variables, the three levels shown in @tbl-desc were used only for the analysis by country. The initial analysis with the pooled sample of all countries used the original 7-level scale (*eisced*). 
 
 
 ```{r}
@@ -143,37 +241,6 @@ tab_desc |>
 
 ```
 
-A few points stand out after examining the descriptive statistics. First, the overall lower support for the principle of Entitlement and stronger support for the principle of Equality as already highlighted by [@adriaans_justice_2020]. Secondly, the covariates follow the expected distribution in relation to the outcome variables. Women tend to give more emphasis to the principle of Equality whereas men tend to emphasise Equity. Older respondents and those with worse economic conditions tend to support the principle of Equality more compared to younger respondents and those with better economic conditions, respectively.  
-
-Finally, in relation to the explanatory variables, there is a higher support for Equality among those with lower educational attainment and whose parents have lower educational attainment. In terms of mobility, the mobile respondents present lower average support for the principles of equality and entitlement. 
-
-
-## Analytical approach
-
-Initial strategies to investigate the effect of social mobility on social outcomes used to compare the average values between mobile and nonmobile individuals. However, as initially argued by Duncan [@duncan_methodological_2018], mobility is a dynamic process that  involves both origin status (e.g. parental education) and a destination status (e.g. one’s own education), which cannot be considered independently. The most common approach to date is the diagonal mobility model (DMM), sometimes referred to as the diagonal reference model (DRM), which emerged in the 1980s [@sobel_diagonal_1981; @sobel_social_1985]. The innovation of the model is the possibility of separating the role of mobility from that of the origin and destination statuses and, as such, the DMM enjoys widespread usage in the literature on social, educational and occupational stratification [@zang_mobility_2023]. 
-
-However, as demonstrated by Luo [-@luo_heterogeneous_2022], the Diagonal Mobility Models present two main limitations for our investigation. First, the accuracy of the estimation is affected in cases where there  is a significant proportion of mobile individuals given that the model relies on the observed values of the nonmobile individuals as reference (the diagonal in a mobility table). In our pooled sample, about two thirds of the respondents are mobile.  Secondly, although DMM provides a parsimonious and insightful estimate to evaluate importance/weight of origin and destination education in its equation, it does not discriminate between heterogeneous effects of mobility, which can result  from the direction (upward or downward) or range of the mobility (number of levels between origin and destination). 
-
-Therefore, to deal with those issues we adopted a new method called Mobility Contrast Model (MCM) recently developed by Luo [-@luo_heterogeneous_2022]. If the mobility effects are similar among mobility groups, both the DMM and the MCM should provide similar results. However, as we expect to observe different effects on social justice attitudes depending on the direction and range of mobility, the MCM is the preferred approach as it provides better estimates for those heterogeneous effects. 
-
-
-# Results
-
-As alluded before, the analysis was divided into two parts. The first one comprises the estimation of mobility effects on the four outcome variables using the pooled sample with responses from all 29 participating countries. In the second part, we have analysed the data from each country separately. The model specification and covariates are the same for both analyses, with the exception of the change in the educational attainment variable in the analysis by country as described in the previous section. 
-
-
-## Mobility effects (all countries)
-
-
-The Appendix contains a table showing the estimates for all variables included in the model. The covariates followed the expected pattern for all outcome variables. Women tend to support the principle of Equality more ($\beta$ = 0.038, p <.001) and the principle of Equity less ($\beta$ = -0.038, p <.001) compared to men, with no statistically significant coefficients for the other two principles. Those in worse economic condition show higher support for both the principle of Equality and Need. Older respondents are predicted to support  the principle of Equity and Need more than younger respondents, and support less the principle of Entitlement. 
-
-In relation to parental educational attainment, only two levels for the principle of Equality has shown a statistically significant difference compared to the other levels. Respondents whose parents had less than a lower secondary degree tend to support the principle of equality more compared to respondents whose parents had a master or doctoral degree ($\beta$ = 0.11, p <.001 and $\beta$ = 0.07, p <.010). 
-
-Regarding respondents' own educational attainment, no clear pattern was observed across the principles of Equity, Need and Entitlement. However, for the principe of Equality, those with an educational attainment lower than upper secondary, tend to support this principle more compared to those with master and doctoral degree. Furthermore, those with post-secondary vocational education and bachelor's degree are predicted to show lower support for Equality compared to those with the highest level of educational attainment.
-
-@tbl-mobil shows the mobility effects for all outcome variables by mobility status. The results differ considerably depending on the outcome variable. Almost none of the mobility paths have shown to be significant predictors of support for either the Equity or Need principles. Only one group of downward mobility (respondent Level 5 and parental Level 7) is a significant predictor of higher support for the Need principle. However, this is weak evidence considering the absence of significant effects in any of the other mobility cells. Likewise, the model for the principle of Entitlement does not provide strong evidence for mobility effects. Significant negative effects are observed for two groups of downward mobility and one group of upward mobility. 
-
-Finally, the analysis provides  evidence that intergenerational educational mobility is associated with the principle of Equality. The strongest effects are found among those whose parents completed the lowest educational level (L1) and who finished either the Level 6 ($\beta$ = 0.256, p <.05), Level 5 ($\beta$ = 0.237, p <.05), or Level 4 ($\beta$ = 0.201, p <.05). The gradual increase in the effect size also  suggests that more steps in the upward mobility result in stronger support for the principle of Equality. On the other hand, for one group who experienced a "shorter" journey of upward mobility (L3 to L6), we observed significant negative effects. Overall no significant downward mobility effects were detected in the model. 
 
 ```{r}
 #| label: tbl-mobil
@@ -194,21 +261,17 @@ tab_est |>
   sub_missing(columns = everything(), missing_text = "--") |>
   tab_spanner(label = "Respondents' educational level", columns = L1:L7) |>
   tab_style_body(fn = function(x) str_detect(x, "\\*"), style = cell_text(weight = 'bold')) |>
-  tab_footnote(md("**Source**: European Social Survey (Round 9)<br>
-      **Notes**: *p < .05,  **p< .01, ***p < .001")) |>
+  # tab_footnote(md("**Source**: European Social Survey (Round 9)<br>
+  #     **Notes**: *p < .05,  **p< .01, ***p < .001")) |>
   tab_style(cell_text(indent = px(-15)), locations = cells_row_groups(groups = everything())) |>
   tab_style(cell_text(indent = px(15)), locations = cells_body(columns = "Origin"))
 
 
 ```
 
-## Mobility effects (by country)
-
-The Appendix present the coefficients for the mobility effects across all countries and outcomes. The samples from 6 countries out of the 29 participating countries did not indicate any statistically significant mobility effect: United Kingdom, Hungary, Lithuania, Latvia, Netherlands, and Norway. @fig-tiles below shows the coefficients of the mobility effects for all the remaining countries. 
 
 ```{r}
 #| label: fig-mob
-
 
 library(ggpubr)
 
@@ -270,26 +333,3 @@ ggexport(
 
 Mobility effects for each justice principle by country
 :::
-
-The analysis of the pooled sample indicated a significant mobility effect from those whose origins lie in the lowest levels and destination in the highest levels. The same result can be observed in the French sample (FR), where the mobility from Level 1 to Level 3 is associated with additional  0.29 units in the scale of Equality (p<0.05). However, two cases go in the opposite direction. Portugal (PT) and Sweden (SE) have a very similar structure of mobility effect in which upward mobility from Level 1, either to Level 2 or 3, is associated with lower support for Equality. Also in both countries a negative effect is found among those in Level 1 whose parents were in Level 3. This suggests a country-level difference in relation to the effects of mobility on support for Equality.   
-
-For the principle of Equity, most of mobility effects have a positive coefficient denoting that an intergenerational mobility in educational attainment is associated with higher support for this principle in most countries (either downward or upward) in almost all countries with the exception of Montenegro.
-
-The German (DE) case in this model also presents evidence on the qualitative differences between mobility groups. The significant effects were found only for groups with one-step mobility (both downward and upward) whereas no statistically significant effects were found across groups with "longer" mobility (two steps).
-
-Similarly, there is a prevalence of positive effects for the principle of Need. The exceptions here are Serbia (RS) and Slovakia (SK) where either upward or downward mobility is associated with lower support for this principle of justice. 
-
-Finally, as opposed to the other principles, the intergenerational mobility effects are generally associated with lower support for the principle of Entitlement.  
-
-
-# Discussion
-
-
-**Limitations**
-- Ceiling, no upward mobility from tertiary level education  
-- Educational attainment is a a proxy for acculturation but has limitations, there are significant differences internationally and within countries in relation to what type and quality of educational experiences individuals are exposed to in formal educational institutions. 
-- Parental educational attainment measured at the time of the survey (not necessarily the formative period of the respondent). Highest parental educational attainment, so not necessarily from the parent with which the respondent was raised. 
-
-
-
-# References

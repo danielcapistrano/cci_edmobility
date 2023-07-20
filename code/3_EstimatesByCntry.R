@@ -5,22 +5,20 @@ library(broom)#tidy regression outputs
 library(broom.helpers)#extra functions for tidy
 library(haven)#SPSS metadata
 
-# Load data processed in 0_Processing.R
-load("./code/data/ess_cci.RData")
+
 
 ### Model specification ##################################################
 
-# Creating vectors with outcome vars, control vars and country fixed effect
+# Creating a vector identifying the outcome vars and another with covariates
 v_covar  <- c("geiscedp * geisced", "agea", "gender", "income_feeling")
 
 v_outc <- c("equality", "equity", "need", "entitlement")
 
-l_country <- c("AT", "BE", "BG", "CH", "CZ", "DE", "DK", "EE", "ES",
- "FI", "FR", "GB", "HR", "HU", "IE", "IS", "IT", "LT", "LV",
- "ME", "NL", "NO", "PL", "PT", "RS", "SE", "SI", "SK")
+# If not defined yet, create a vector with a list of all countries to generate models for
+if (!exists("l_country")){l_country <- unique(as.character(ess_cci$cntry))}
+
 
 # Function to build a model for each outcome
-
 get_model_c <- function(myoutcome, mycountry){
   # generating the call formula for each outcome
   myformula <- as.formula(paste(myoutcome, paste(v_covar, collapse = " + "), sep = "~"))
@@ -101,4 +99,3 @@ tab_sig_entit <- get_tab_sig(m_entit) |> mutate(Outcome = "Entitlement")
 tab_sig_c <- bind_rows(tab_sig_equal, tab_sig_equit, tab_sig_need, tab_sig_entit)
 
 tab_clabel  <- tibble(cntry = ess_cci$cntry, country = as_factor(ess_cci$cntry)) |> distinct()
-

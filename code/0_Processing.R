@@ -9,8 +9,10 @@
 
 #### Required packages ####
 
-library(tidyverse)#data manipulation
-library(haven)#load SPSS dataset and metadata
+library(tidyverse) # data manipulation
+library(haven) # load SPSS dataset and metadata
+library(missRanger) # multiple imputation 
+
 
 #### 1) Accessing the full dataset from the ESS website #######################
 
@@ -53,11 +55,13 @@ ess9 <- ess9 |> mutate(agea = if_else(agea == 999, NA, agea))
 # # This algorithm is based on one implementation of Random Forest
 # # It also makes use of predictive mean matching avoiding the imputation
 # # of values not present in the observed data.
-# # If lines in this sections are commented, then listwise deletion is applied
+# # If object 'multimput' is "No", then no imputation is performed
 
-library(missRanger)
+multimput <- "yes"
 
-ess9 <- missRanger(ess9, pmm.k = 3, num.trees = 10, seed = 11, verbose =0)
+if(multimput == "yes"){
+  ess9 <- missRanger(ess9, pmm.k = 3, seed = 12, verbose = 0)
+}
 
 ## 3) Recoding variables #####################################################
 
@@ -90,10 +94,10 @@ ess9 <-
 # eiscedf: father's education
 
 # Lists of countries with skewed distributions
-lc_low <- c("PT", "IT", "ES")
-lc_mid <- c("SK", "CZ", "DE")
-lc_hi <- c("IS", "SE", "NO")
-lc_lowhi <- c("LV", "EE", "IE")
+lc_low <- c("PT", "IT", "ES") # Have too many obs. in the default lower level
+lc_mid <- c("SK", "CZ") # Too many obs. in the default mid level
+lc_hi <- c("IS", "SE", "NO") # Too many obs. in the default mid level
+lc_lowhi <- c("LV", "EE") # Too many obs. in the default extreme levels
 
 # Recoding by group of countries
 ess9 <-
@@ -150,10 +154,6 @@ ess9 <-
       agea  >= 45 & agea  <= 64 ~ "45-64",
       agea  >= 65 ~ "65+",
       is.na(agea) ~ NA_character_),
-    location = case_when(
-      domicil  < 4 ~ "Urban",
-      domicil  %in% c(4, 5) ~ "Rural",
-      is.na(domicil) ~ NA_character_),
     income_feeling = factor(case_when(
       hincfel == 1 ~ "Living comfortably",
       hincfel == 2 ~ "Coping",
@@ -172,18 +172,28 @@ ess_cci <-
   ess9 |>
     select(idno, anweight, equality, equity, need, entitlement, cntry, 
             eiscedp, eiscedf, eiscedm, eisced, geisced, geiscedp, agea,
-            mobility, gender, location, age_group, income_feeling)
+            mobility, gender, age_group, income_feeling)
 
 # Selecting only those aged 25 or older
 ess_cci <- ess_cci |> filter(agea > 24)
 
-# Keeping only the complete cases (listwise deletion)
-ess_cci <-
-  ess_cci |>
-    drop_na(geisced, geiscedp, gender, age_group, location,
-            equality, equity, need, entitlement, income_feeling)
 
+# Saving final dataset if multiple imputation (MI) was carried out, or
+# removing incomplete cases and saving if no MI was carried out
 
-# Saving data file with the final sample
-save(ess_cci, file = "./code/data/ess_cci.RData")
+if(multimput == "yes"){
+  save(ess_cci, file = "./code/data/ess_cci_mi.rds")
+} else {
+  if(multimput == "no"){
+  # Keeping only the complete cases (No multiple imputation - nomi)
+  ess_cci_nomi <-
+    ess_cci |>
+      drop_na(c(geisced, geiscedp, gender, age_group,
+              equality, equity, need, entitlement, income_feeling))
+  
+  save(ess_cci_nomi, file = "./code/data/ess_cci_nomi.rds")
 
+  } else {
+     print("Error: Select a missing value treatment by indicating 'multimput' as 'yes' or 'no'.")
+  }
+}

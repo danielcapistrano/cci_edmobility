@@ -5,15 +5,12 @@ library(broom)#tidy regression outputs
 library(broom.helpers)#extra functions for tidy
 library(haven)#SPSS metadata
 
-# Load data processed in 0_Processing.R
-load("./code/data/ess_cci.RData")
-
 ### Model specification ##################################################
 
-# Creating vectors with outcome vars, control vars and country fixed effect
-v_covar  <- c("eiscedp * eisced", "agea", "gender", "income_feeling", "cntry")
-
+# Creating a vector identifying the outcome vars and another with covariates (including cntry fixed effects)
 v_outc <- c("equality", "equity", "need", "entitlement")
+
+v_covar  <- c("eiscedp * eisced", "agea", "gender", "income_feeling", "cntry")
 
 # Function to build a model for each outcome
 
@@ -81,7 +78,6 @@ tab_est$Estimate <- as.numeric(tab_est$Estimate)
 tab_se <- bind_rows(map(models, ~get_mobile(.x$mobility_se)), .id = "Outcome")
 tab_se <- tab_se |> pivot_longer(cols= L1:L7, names_to = "Destination", values_to = "SE")
 tab_se$SE <- as.numeric(tab_se$SE)
-
 
 # Sig test
 

@@ -3,9 +3,6 @@ library(haven)#using SPSS metadata
 library(Hmisc)#for weighted standard deviation
 
 
-# Load data processed in 0_Processing.R
-load("./code/data/ess_cci.RData")
-
 #### Summary table #####################################################
 
 # Defining vectors with variable names

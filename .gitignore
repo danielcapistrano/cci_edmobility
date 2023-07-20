@@ -2,8 +2,8 @@
 code/data/ESS9e03_1.sav
 # The following data file was not uploaded
 # Please contact authors to request access
-code/data/ess_cci.RData
-code/data/ess_cci_listwise.RData
+code/data/ess_cci_mi.rds
+code/data/ess_cci_nomi.rds
 .quarto
 .DS_Store
 /.quarto/

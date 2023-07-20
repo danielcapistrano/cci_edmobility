@@ -1,17 +1,14 @@
 ---
 title: "Appendix"
-subtitle: "Educational Mobility and Attitudes Towards Social Justice in Europe"
+subtitle: "‘I guess we are from very different backgrounds’: Attitudes towards Social Justice and Intergenerational Educational Mobility in European Societies"
 author: 
     - Daniel Capistrano
     - Mathew Creighton
     - Ebru Işıklı
-format: html
-  # pdf:
-  #   link-citations: true
-  #   include-in-header: 
-  #     text: |
-  #       \usepackage{typearea}
-toc: false
+format:
+  docx:
+    reference-doc: refs/sir_appd_template.docx
+toc: true
 number-sections: true
 execute:
     echo: false
@@ -22,26 +19,24 @@ execute:
 
 ```{r}
 library(gt)
+
+# Load data processed in 0_Processing.R
+load("./code/data/ess_cci_mi.rds")
 ```
 
-# Introduction
+# Additional tables (imputed sample)
 
-In this appendix, we include additional tables and tests from the paper `TITLE`.
+In this appendix, we include additional tables from the analysis of the paper "*I guess we are from very different backgrounds’: Attitudes towards Social Justice and Intergenerational Educational Mobility in European Societies*". The following 
 
-\newpage
 
-<!-- changing the orientation to landscape --------------------------------- -->
+## Table A1 - Full model estimates for the pooled sample
 
-\KOMAoptions{paper=landscape,pagesize}
-\recalctypearea
-
-# Pooled sample
+This table contains the same results included in Table 2 adding the covariates that were omitted in the main text. 
 
 ```{r}
-#| label: tbl-afull
-#| tbl-cap: "Full model estimates for the pooled sample"
+#| label: tbl-full
 
-# Running code to generate the raw Table1
+# Running code to generate the raw Table
 source("./code/2_Estimates.R")
 
 # Generating formatted table
@@ -64,33 +59,23 @@ tab_output |>
   tab_spanner(label = "Entitlement", columns = starts_with("entitlement")) |>
   cols_label(ends_with("_estimate") ~ "Estimate",
             ends_with("_conf") ~ "95% CI") |>
-  tab_footnote(md("**Source**: European Social Survey (Round 9)<br>
-      **Notes**: The estimates are derived from weighted data (*anweight*). 
-      Estimates for interactions between education attainment levels were omitted.
-      Models also included country fixed-effects")) |>
   tab_style(style = cell_text(align = "left", indent = px(10)), locations = cells_stub()) 
 
 ```
 
+**Source**: European Social Survey (Round 9)
+**Notes**:  The estimates are derived from weighted data (*anweight*). Models also included country fixed-effects.
+
 
 \newpage
 
-<!-- % changing the orientation to portrait again -------------------------- -->
-
-\KOMAoptions{paper=portrait,pagesize}
-\recalctypearea
-
-
-
-
-# Mobility estimates by country
+## Table A2 - Mobility estimates by country and outcome variable
 
 
 ```{r}
 #| label: tbl-acntry
-#| tbl-cap: "Mobility effects by country and outcome variable"
 
-# Running code to generate the raw Table1
+# Running code to generate the raw Table
 source("./code/3_EstimatesByCntry.R")
 
 # Generating formatted table
@@ -114,18 +99,161 @@ tab_est_c |>
   sub_missing(columns = everything(), missing_text = "--") |>
   tab_spanner(label = "Respondents' educational level", columns = -c(Origin, country)) |>
   tab_style_body(fn = function(x) str_detect(x, "\\*"), style = cell_text(weight = 'bold')) |>
-  tab_footnote(md("**Source**: European Social Survey (Round 9)<br>
-      **Notes**: *p < .05,  **p< .01, ***p < .001. Only countries with a statistically significant effect are shown in the table.")) |>
   tab_style(cell_text(indent = px(-5)), locations = cells_row_groups(groups = everything())) |>
   tab_style(cell_text(indent = px(15)), locations = cells_body(columns = "Origin"))
 
 ```
 
+**Source**: European Social Survey (Round 9)
+**Notes**: Only countries with a statistically significant effect are shown in the table.  
+*p < .05,  ** p< .01, *** p < .001. 
+
+\newpage
+
+# Tables using non-imputed sample 
+
+In the main analysis, we replaced missing responses using an iterative multiple imputation method. The main tables included in the text are replicated below using a dataset without the referred multiple imputation. The tables below were generated using a reduced sample from the original data after listwise deletion.
+
+```{r}
+# Load data processed in 0_Processing.R
+load("./code/data/ess_cci_nomi.rds")
+ess_cci <-  ess_cci_nomi
+```
+
+## Table A3 - Summary statistics for outcome variables (no MI)
+
+```{r}
+#| label: tbl-desc
+#| tbl-cap: "Summary statistics for outcome variables by explanatory variables and covariates"
+
+# Running code to generate the raw table
+source("./code/1_Descriptives.R")
+
+tab_desc |>
+  mutate(group = case_match(group, 
+                "geisced" ~ "Educ. attainment (Resp.)",
+                "geiscedp" ~ "Educ. attainment (Parent.)",
+                "mobility" ~ "Mobility direction",
+                "age_group" ~ "Age group",
+                "gender" ~ "Gender",
+                "income_feeling" ~ "Feeling about income", 
+                "total" ~ "")) |>
+  gt(groupname_col = "group", rowname_col = "categories") |>
+  tab_spanner(label = "Equality", columns = starts_with("equality")) |>
+  tab_spanner(label = "Equity", columns = starts_with("equity")) |>
+  tab_spanner(label = "Need", columns = starts_with("need")) |>
+  tab_spanner(label = "Entitlement", columns = starts_with("entitlement")) |>
+  cols_label(ends_with("_m") ~ "Mean", ends_with("_se") ~ "Std. Error") |>
+  fmt_number(columns = ends_with("_m"), decimals = 2) |>
+  fmt(columns = ends_with("_se"), fns = function(x) {paste0("(", round(x,2), ")")}) |>
+  tab_footnote(md("**Source**: European Social Survey (Round 9)")) |>
+  tab_style(style = cell_text(align = "left", indent = px(10)), locations = cells_stub()) |>
+  tab_options(table.width = pct(100))
+
+```
+
+## Table A4 - Mobility effects for each justice principle (no MI)
+
+```{r}
+#| label: tbl-mobil
+#| tbl-cap: "Mobility effects for each justice principle"
+
+# Running code to generate the raw Table
+source("./code/2_Estimates.R")
+
+tab_est |>
+  left_join(tab_sig, by = c("Outcome", "Origin", "Destination")) |>
+  mutate(Outcome = str_to_title(Outcome)) |>
+  mutate(Value = if_else(is.na(Estimate), NA, 
+                          paste0(as.character(round(Estimate, 3)),Sig))) |>
+  select(Outcome, Origin, Destination, Value) |>
+  pivot_wider(names_from = Destination, values_from = Value) |>
+  gt(groupname_col = "Outcome") |>
+  cols_label(Origin ~ md("Parental <br>educ. level")) |>
+  sub_missing(columns = everything(), missing_text = "--") |>
+  tab_spanner(label = "Respondents' educational level", columns = L1:L7) |>
+  tab_style_body(fn = function(x) str_detect(x, "\\*"), style = cell_text(weight = 'bold')) |>
+  # tab_footnote(md("**Source**: European Social Survey (Round 9)<br>
+  #     **Notes**: *p < .05,  **p< .01, ***p < .001")) |>
+  tab_style(cell_text(indent = px(-15)), locations = cells_row_groups(groups = everything())) |>
+  tab_style(cell_text(indent = px(15)), locations = cells_body(columns = "Origin"))
 
 
-# Missing Values
+```
 
-For the analysis reported in the main text, the missing values were replaced using an iterative multiple imputation method based on the random forest algorithm. Here we include the 
+## Figure A1 - Mobility effects for each justice principle by country (no MI)
 
 
-# References
+```{r}
+#| label: fig-mob
+
+library(ggpubr)
+
+l_country <- unique(as.character(ess_cci$cntry))
+l_country <- l_country[l_country != "PT"] # MCM does not converge with Portugal
+
+# Running code to generate the raw Table
+source("./code/3_EstimatesByCntry.R")
+
+# Countries with at least one statistically significant effect
+l_countrysig <- tab_sig_c |> filter(Sig != "") |> distinct(cntry) |> pull()
+
+# Tidying table to generate plot
+tab_forplot <-
+  tab_est_c |> 
+    filter(cntry %in% l_countrysig) |>
+    left_join(tab_sig_c, by = c("cntry", "Outcome", "Origin", "Destination")) |>
+    select(cntry, Outcome, Origin, Destination, Estimate, Sig)  |>
+    mutate(label = paste0(as.character(round(Estimate, 2)), Sig)) |>
+    mutate(Origin = as.numeric(gsub("L", "", Origin))) |>
+    mutate(Destination = as.numeric(gsub("L", "", Destination))) |> 
+    filter(Sig != "")
+
+# Function to generate plot for each outcome
+get_ggtile <- function(myoutcome){
+  tab_forplot |>
+    filter(Outcome == {{myoutcome}}) |>
+    ggplot(aes(x = Destination, y = reorder(Origin, - Origin))) + 
+    geom_tile(aes(fill = Estimate), width = 1) +
+    geom_vline(xintercept = c(1.5, 2.5))+
+    geom_hline(yintercept = c(1.5, 2.5))+
+    geom_hline(yintercept = c(0.5, 3.5))+
+    geom_text(aes(label = label), size = 2.5, color = "white") +
+    scale_fill_gradient2(low = "#AA5B55", mid = "#BCC7CD", high = "#498B9D")+
+    scale_x_continuous(breaks=c(1,2,3),labels=c("L1","L2","L3"), expand=c(0,0), sec.axis = dup_axis()) +
+    scale_y_discrete(labels=c("L3","L2","L1")) +
+    facet_wrap(~cntry, ncol=1, strip.position = "left") +
+    labs(x = "Respondent educ. (Destination)", y = "Parental education (Origin)",
+          title = {{myoutcome}}) +
+    theme_light() +
+    theme(strip.text = element_text(size = 11, face = "bold"),
+          strip.background = element_rect(fill = "grey30"),
+          axis.text = element_text(size = 8),
+          axis.title = element_text(size = 9),
+          plot.title = element_text(size = 16, hjust = 0.5),
+          legend.position = "bottom")
+}
+
+
+ggexport(
+  ggarrange(get_ggtile("Equality"), get_ggtile("Equity"),
+            get_ggtile("Need"), get_ggtile("Entitlement"),
+            nrow = 1),
+  filename = "./img/fig_tiles_nomi.png",
+  width = 900, height = 1000, res = 120)
+
+
+# Re-including Portugal for other analyses
+l_country <- unique(as.character(ess_cci$cntry))
+
+```
+
+:::{#fig-tiles}
+![](./img/fig_tiles_nomi.png)
+:::
+
+**Source**: European Social Survey (Round 9)
+**Notes**: The sample for Portugal was not included in the analysis. Given the reduced sample and the distribution of the mobility table, the MCM does not converge for this country.  
+*p < .05,  ** p< .01, *** p < .001. 
+
+
