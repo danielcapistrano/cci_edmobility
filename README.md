@@ -1,5 +1,7 @@
-This directory contains all the code necessary to reproduce the analysis described in the paper "'I guess we are from very different backgrounds':
-Attitudes towards Social Justice and Intergenerational Educational Mobility in European Societies"
+This directory contains all the code necessary to reproduce the analysis described in the paper "'[I guess we are from very different backgrounds':
+Attitudes towards Social Justice and Intergenerational Educational Mobility in European Societies](https://doi.org/10.1007/s11205-023-03249-9)" published by Social Indicators Research in 2023. 
+
+A pre-print version is available at [https://osf.io/preprints/socarxiv/9j7d4](https://osf.io/preprints/socarxiv/9j7d4)
 
 # Requirements
 

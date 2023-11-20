@@ -20,10 +20,10 @@ author:
 abstract: "This paper addresses the relationship between intergenerational educational mobility and attitudes in relation to fairness in European societies. The dimensions of fairness considered capture a broader notion of social justice by targeting four distinct principles: equality, equity, need and entitlement [@hulle_measuring_2018]. We investigate how attitudes towards those principles differ across individuals who experienced upward, stable, or downward trajectories of educational mobility in relation to their parents. To offer a comparative framework, we use nationally representative surveys of public opinion from 29 countries who participated in the 2018 round of the European Social Survey (ESS), which included a unique battery of questions on attitudes towards fairness. Using Mobility Contrast Models (MCMs), we identify the independent role of educational mobility in shaping attitudes regarding four types of fairness, which encapsulate the broader concept of social justice. We explore notable variation at the country level, although the pooled sample indicates that upward mobility significantly predicts a higher support for the principle of equality. In addition, this relationship is stronger among the more upwardly mobile (i.e., a greater difference between a respondent’s education and that of their parent)."
 keywords: "Social Justice; Education; Mobility; European Social Survey; Attitudes; Inequality"
 format:
-  docx:
-    reference-doc: refs/sir_template.docx
-  # pdf:
-  #   link-citations: true
+  # docx:
+  #   reference-doc: refs/sir_template.docx
+  pdf:
+    link-citations: true
 toc: false
 number-sections: true
 date-modified: "`r Sys.Date()`"
@@ -44,6 +44,10 @@ library(gt)
 # Load data processed in 0_Processing.R
 load("./code/data/ess_cci_mi.rds")
 ```
+
+This preprint has not undergone peer review or any post-submission improvements or corrections. The Version of Record of this article is published in Social Indicators Research, and is available online at [https://doi.org/10.1007/s11205-023-03249-9](https://doi.org/10.1007/s11205-023-03249-9).
+
+The code required to reproduce the analyses described here is available at the following repository: [www.github.com/danielcapistrano/cci_edmobility](www.github.com/danielcapistrano/cci_edmobility).
 
 
 # Introduction
@@ -176,7 +180,7 @@ Finally, the model for principle of Need suggests a different pattern compared t
 
 # Discussion
 
-The book 'Normal People' by Sally Rooney [-@rooney_normal_2018] offers a literary portrayal of the social phenomenon observed in this study. Connel, one of the main characters, comes from a working-class family in the country side and is admitted to study in a prestigious university in the capital. The story develops around his relationship with Marianne, who is also studying at the same university and is from a wealthy background with her mother being the employer of Connel's mother. In a passage of the book, they are having a coffee together after receiving the news that both of them got a scholarship, but one of Marianne's friend did not get it.  After a discussion about merit that exposed different views on who deserves scholarships and why, Connel suggests that their views differ due to their trajectories: "I guess we’re from very different backgrounds" [@rooney_normal_2018, p. 123]
+The book 'Normal People' by Sally Rooney [-@rooney_normal_2018] offers a literary portrayal of the social phenomenon observed in this study. Connell, one of the main characters, comes from a working-class family in the country side and is admitted to study in a prestigious university in the capital. The story develops around his relationship with Marianne, who is also studying at the same university and is from a wealthy background with her mother being the employer of Connell's mother. In a passage of the book, they are having a coffee together after receiving the news that both of them got a scholarship, but one of Marianne's friend did not get it.  After a discussion about merit that exposed different views on who deserves scholarships and why, Connell suggests that their views differ due to their trajectories: "I guess we’re from very different backgrounds" [@rooney_normal_2018, p. 123]
 
 The theme of a relationship across different social classes is surely not new. But this story in particular unveils subtleties about two individuals who had similar formal education (studying in the same secondary school and university) but whose parents had different educational and social experiences and how this affects their views of society, what is fair and what is just. 
 

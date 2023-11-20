@@ -1,6 +1,6 @@
 ---
 title: "'I guess we are from very different backgrounds':"
-subtitle: "Educational Mobility and Attitudes Towards Social Justice in Europe"
+subtitle: "Educational Mobility and Attitudes Towards Social Justice in European Societies"
 author: 
     - Daniel Capistrano
     - Mathew Creighton
@@ -22,7 +22,7 @@ bibliography: refs/mobility.bib
 csl: refs/apa.csl
 ---
 
-In this website, we summarise the results of the paper `title` that is available `link-paper`. All the code and data required to reproduce the analysis described here is available in this `link-repository`.  
+Here you will find a summary of the paper "[Attitudes towards Social Justice and Intergenerational Educational Mobility in European Societies](https://doi.org/10.1007/s11205-023-03249-9)". You can reproduce the analyses described here with the data and code available at [this repository](www.github.com/danielcapistrano/cci_edmobility).  
 
 
 ```{r} 
@@ -35,7 +35,7 @@ load("./code/data/ess_cci_mi.rds")
 
 # What is this research about?
 
-The book 'Normal People' by Sally Rooney [-@rooney_normal_2018] offers a literary portrayal of a social phenomenon addressed in this study. Connel, one of the main characters, comes from a working-class family in the country side and is admitted to study in a prestigious university in the capital. The story develops around his relationship with Marianne, who is also studying at the same university and is from a wealthy background with her mother being the employer of Connel's mother. In a passage of the book, they are having a coffee after receiving the news that both of them got a scholarship, but one of Marianne's friend did not get it.  
+The book 'Normal People' by Sally Rooney [-@rooney_normal_2018] offers a literary portrayal of a social phenomenon addressed in this study. Connell, one of the main characters, comes from a working-class family in the country side and is admitted to study in a prestigious university in the capital. The story develops around his relationship with Marianne, who is also studying at the same university and is from a wealthy background with her mother being the employer of Connell's mother. In a passage of the book, they are having a coffee after receiving the news that both of them got a scholarship, but one of Marianne's friend did not get it.  
 
 :::{.column-page}
 ![Image from a scene in 'Normal People' drama series, Hettie Macdonald, 2020 ](./img/NormalPeople.jpeg)
