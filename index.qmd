@@ -21,8 +21,13 @@ execute:
 bibliography: refs/mobility.bib
 csl: refs/apa.csl
 ---
+Hi!
 
-Here you will find a summary of the paper "[Attitudes towards Social Justice and Intergenerational Educational Mobility in European Societies](https://doi.org/10.1007/s11205-023-03249-9)". You can reproduce the analyses described here with the data and code available at [this repository](www.github.com/danielcapistrano/cci_edmobility).  
+This is a summary of the paper "[Attitudes towards Social Justice and Intergenerational Educational Mobility in European Societies](https://doi.org/10.1007/s11205-023-03249-9)" published by Social Indicators Research in 2024.
+
+A pre-print version is available at [https://osf.io/preprints/socarxiv/9j7d4](https://osf.io/preprints/socarxiv/9j7d4)
+
+You can reproduce the analyses described here with the data and code available at [this repository](www.github.com/danielcapistrano/cci_edmobility).  
 
 
 ```{r} 
